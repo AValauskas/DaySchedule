@@ -21,4 +21,10 @@ Route::get('/login', function () {
     return view('pages.login');
 });
 Route::post('/store', 'UserController@store');
+Route::post('/log', 'UserController@log');
+
+Route::get('/Main', function () {
+    return view('pages.Main');
+});
+
 

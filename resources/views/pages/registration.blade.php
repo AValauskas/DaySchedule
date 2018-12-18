@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 ?>
 
@@ -21,15 +20,15 @@ session_start();
         <form class="" action="{{URL::to('/store')}}" method="post">
             @csrf
             <h3>Registration</h3><br>
-            <input type="text" name="name" placeholder="Name" value="" required><br><br>
+            <input type="text" name="name" placeholder="Name" value="<?php echo $_SESSION['name'] ?>" required><br><br>
 
-            <input type="text" name="login" placeholder="Login" value="" required><br>
+            <input type="text" name="login" placeholder="Login" value="<?php echo $_SESSION['name_login'] ?>" required><br>
             <?php echo $_SESSION['name_error']; ?>
             <br>
             <input type="password" name="password" placeholder="Password" value="" required><br>
             <?php echo $_SESSION['pass_error']; ?>
             <br>
-            <input type="email" name="mail" placeholder="Email" value="" required><br>
+            <input type="email" name="mail" placeholder="Email" value="<?php  echo $_SESSION['mail_login'] ?>" required><br>
             <?php echo $_SESSION['mail_error']; ?>
             <br>
             <input type="hidden" name="_token" value="{{csrf_token()}}">

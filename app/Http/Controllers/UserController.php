@@ -43,7 +43,7 @@ class UserController extends Controller
                     $password=substr(hash('sha256',$password),5,32);
 
 
-                    $sql="insert into asmuo(name,email, username, password,userlevel) values('$name','$mail','$username','$password','$userlevel')";
+                    $sql="insert into person(name,email, username, password,userlevel) values('$name','$mail','$username','$password','$userlevel')";
                     if (mysqli_query($dbc, $sql))
                     {$_SESSION['message']="Registracija sėkminga";
                         inisession();
@@ -85,7 +85,7 @@ class UserController extends Controller
 
                     $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
 
-                    $sql = "UPDATE asmuo SET timestamp='$time' WHERE  username='$username'";
+                    $sql = "UPDATE person SET timestamp='$time' WHERE  username='$username'";
                     if (!mysqli_query($dbc, $sql)) {
                         echo " DB klaida įrašant timestamp: " . $sql . "<br>" . mysqli_error($dbc);
                         exit;}
@@ -99,4 +99,22 @@ class UserController extends Controller
         return redirect('/login');
     }
 
+
+    public function continue(request $request)
+    {
+        if(empty($_SESSION["user"]))
+        {
+            return redirect('/welcome');
+        }
+        else{
+            return redirect('/Main');
+        }
+
+    }
+
+    public function logout(request $request)
+    {
+        session_unset();
+        return redirect('/');
+    }
 }

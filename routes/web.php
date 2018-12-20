@@ -10,8 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'UserController@continue');
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 Route::get('/registration', function () {
@@ -22,8 +23,13 @@ Route::get('/login', function () {
 });
 Route::post('/store', 'UserController@store');
 Route::post('/log', 'UserController@log');
+Route::get('/logout', 'UserController@logout');
+
 
 Route::get('/Main', function () {
+    return view('pages.Main');
+});
+Route::get('/index.php', function () {
     return view('pages.Main');
 });
 

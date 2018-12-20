@@ -96,9 +96,9 @@ class Calendar
      */
     public function __construct()
     {
-        print "<a href='/Main' ></a>";
-        $str = '<a href="/Main"></a>';
-        $this->naviHref = htmlentities($_SERVER['PHP_SELF']);
+
+        $str = "http://localhost/DaySchedule/public/Main";
+        $this->naviHref = htmlentities($str);
     }
 
     /********************* PROPERTY ********************/

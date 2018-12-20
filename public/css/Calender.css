@@ -110,6 +110,22 @@ div#calendar ul.dates li{
     color:#000;
     text-align:center;
 }
+div#calendar ul.dates li:hover{
+    margin:0px;
+    padding:0px;
+    margin-right:5px;
+    margin-top: 5px;
+    line-height:80px;
+    vertical-align:middle;
+    float:left;
+    list-style-type:none;
+    width:80px;
+    height:80px;
+    font-size:25px;
+    background-color: #66ff33;
+    color:#000;
+    text-align:center;
+}
 
 :focus{
     outline:none;

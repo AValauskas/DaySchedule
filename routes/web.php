@@ -32,5 +32,8 @@ Route::get('/Main', function () {
 Route::get('/index.php', function () {
     return view('pages.Main');
 });
+Route::get('/Day', function () {
+    return view('pages.Day');
+});
 
 

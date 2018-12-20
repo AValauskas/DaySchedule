@@ -99,6 +99,10 @@ class Calendar
 
         $str = "http://localhost/DaySchedule/public/Main";
         $this->naviHref = htmlentities($str);
+
+
+        $str2 = "http://localhost/DaySchedule/public/Day";
+        $this->naviToDay = htmlentities($str2);
     }
 
     /********************* PROPERTY ********************/
@@ -220,6 +224,11 @@ class Calendar
             ($cellContent == null ? 'mask' : '') . '">' . $cellContent . '</li>';
     }
 
+    private function clicked()
+    {
+
+
+    }
     /**
      * create navigation
      */
@@ -260,6 +269,8 @@ class Calendar
 
         return $content;
     }
+
+
 
 
     /**

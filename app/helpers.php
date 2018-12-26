@@ -103,6 +103,7 @@ class Calendar
 
         $str2 = "http://localhost/DaySchedule/public/Day";
         $this->naviToDay = htmlentities($str2);
+
     }
 
     /********************* PROPERTY ********************/
@@ -119,6 +120,8 @@ class Calendar
     private $daysInMonth = 0;
 
     private $naviHref = null;
+
+    private $naviToDay = null;
 
     /********************* PUBLIC **********************/
 
@@ -183,6 +186,7 @@ class Calendar
         $content .= '</div>';
 
         $content .= '</div>';
+
         return $content;
     }
 
@@ -218,20 +222,22 @@ class Calendar
 
             $cellContent = null;
         }
+        $preMonth = $this->currentMonth == 1 ? 12 : intval($this->currentMonth) - 1;
 
+        $preYear = $this->currentMonth == 1 ? intval($this->currentYear) - 1 : $this->currentYear;
 
-        return '<li id="li-' . $this->currentDate . '" class="' . ($cellNumber % 7 == 1 ? ' start ' : ($cellNumber % 7 == 0 ? ' end ' : ' ')) .
+////ŠITASSSSSS
+        return '<li onclick="javascript:alert(1);try{showOld()}catch(e){alert(e)}" id="li-' . $this->currentDate . '" class="' . ($cellNumber % 7 == 1 ? ' start ' : ($cellNumber % 7 == 0 ? ' end ' : ' ')) .
             ($cellContent == null ? 'mask' : '') . '">' . $cellContent . '</li>';
     }
 
-    private function clicked()
-    {
-
-
+    function showOld() {
+        alert('test');
     }
     /**
      * create navigation
      */
+
     private function _createNavi()
     {
 
@@ -263,14 +269,20 @@ class Calendar
 
         foreach ($this->dayLabels as $index => $label) {
 
-            $content .= '<li class="' . ($label == 6 ? 'end title' : 'start title') . ' title">' . $label . '</li>';
+            $content .= '<li onclick="clicked(this.id)" class="' . ($label == 6 ? 'end title' : 'start title') . ' title">' . $label . '</li>';
 
         }
 
         return $content;
     }
 
+    private function clicked(&$str) {
 
+        var_dump("labas");
+        die;
+        echo "Labas";
+        // $("#loading-content").load("dataSearch.php?"+str, hideLoader);
+    }
 
 
     /**

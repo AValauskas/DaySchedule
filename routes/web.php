@@ -24,7 +24,7 @@ Route::get('/login', function () {
 Route::post('/store', 'UserController@store');
 Route::post('/log', 'UserController@log');
 Route::get('/logout', 'UserController@logout');
-
+Route::get('/addaction', 'UserController@addaction');
 
 Route::get('/Main', function () {
     return view('pages.Main');

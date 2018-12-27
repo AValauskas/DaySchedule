@@ -117,4 +117,48 @@ class UserController extends Controller
         session_unset();
         return redirect('/');
     }
+
+
+    public function addaction(request $request)
+    {
+        $date_from=$request->input('date_from');
+        $date_to=strtolower($request->input('date_to'));
+        $action=$request->input('action');
+        $kind=$request->input('kind');
+        $_SESSION['error']=null;
+        $uid= $_SESSION['userid'];
+        $date = strtotime($date_from);
+        $date2= strtotime($date_to);
+        $time=NOW();
+        $timenow=strtotime($time);
+
+        if ( $timenow>=  $date )
+        {
+            $_SESSION['error']="date is passed";
+            return redirect('/Day');
+        }
+        elseif ($date>=$date2)
+        {
+            $_SESSION['error']="wrong date";
+            return redirect('/Day');
+        }
+        else {
+            $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
+            if (!$dbc) {
+                die ("Can't connect to MySQL:" . mysqli_error($dbc));
+            }
+            $sql = "insert into post(text,datetime_from,datetime_to,status,category,fk_Personid_Person) values('$action','$date_from','$date_to','1','$kind','$uid')";
+
+            if (mysqli_query($dbc, $sql))
+            {$_SESSION['message']="Succesfully added";
+
+                return redirect('/Day');
+            }
+
+            return redirect('/Day');
+        }
+    }
+
+
+
 }

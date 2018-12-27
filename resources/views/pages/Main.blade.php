@@ -140,6 +140,8 @@ for ($day = 1; $day <= $day_count; $day++, $str++) {
         <li class="list-inline-item"><a href="?ym=<?= $prev; ?>" class="btn btn-link">&lt; prev</a></li>
         <li class="list-inline-item"><span class="title"><?= $title; ?></span></li>
         <li class="list-inline-item"><a href="?ym=<?= $next; ?>" class="btn btn-link">next &gt;</a></li>
+        <li class="list-inline-item"><a href="../public/Day" class="btn btn-link">add action&gt;</a></li>
+
     </ul>
     <p class="text-right"><a href="../public/Main">Today</a></p>
     <table class="table table-bordered">

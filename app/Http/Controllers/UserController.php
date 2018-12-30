@@ -122,9 +122,19 @@ class UserController extends Controller
     public function addaction(request $request)
     {
         $date_from=$request->input('date_from');
-        $date_to=strtolower($request->input('date_to'));
+        $date_to=$request->input('date_to');
         $action=$request->input('action');
         $kind=$request->input('kind');
+       /* var_dump($date_from);
+        var_dump($date_to);
+        die;*/
+
+        $_SESSION["date_from"]=$date_from;
+        $_SESSION["date_to"]=$date_to;
+        $_SESSION["action"]=$action;
+        $_SESSION["kind"]=$kind;
+
+
         $_SESSION['error']=null;
         $uid= $_SESSION['userid'];
         $date = strtotime($date_from);
@@ -147,12 +157,31 @@ class UserController extends Controller
             if (!$dbc) {
                 die ("Can't connect to MySQL:" . mysqli_error($dbc));
             }
-            $sql = "insert into post(text,datetime_from,datetime_to,status,category,fk_Personid_Person) values('$action','$date_from','$date_to','1','$kind','$uid')";
 
-            if (mysqli_query($dbc, $sql))
-            {$_SESSION['message']="Succesfully added";
 
-                return redirect('/Day');
+           // $sqlfindt ="select * from post where (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to')";
+            $sqlfind ="select * from post where (datetime_from <='$date_from' and datetime_to >= '$date_to') or (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to') or (datetime_from <='$date_from' and datetime_to >'$date_from' and datetime_to <= '$date_to') ";
+           //var_dump($sqlfindt);
+          // die;
+
+
+            $data = mysqli_query($dbc, $sqlfind);
+            $row = mysqli_fetch_assoc($data);
+            if ( is_null($row['text'])) {
+                $sql = "insert into post(text,datetime_from,datetime_to,status,category,fk_Personid_Person) values('$action','$date_from','$date_to','1','$kind','$uid')";
+
+                if (mysqli_query($dbc, $sql)) {
+                    $_SESSION['message'] = "Succesfully added";
+
+                    $_SESSION["date_from"] = null;
+                    $_SESSION["date_to"] = null;
+                    $_SESSION["action"] = null;
+                    $_SESSION["kind"] = null;
+                    return redirect('/Day');
+                }
+            }
+            else{
+                $_SESSION['error']="at this time post is already written";
             }
 
             return redirect('/Day');

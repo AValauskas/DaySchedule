@@ -36,9 +36,9 @@
             @csrf
             <h3>Add Action</h3><br>
             <div>
-                <h2>Date from</h2> <input type="datetime-local" name="date_from" required>
-                <h2>Date to</h2> <input type="datetime-local" name="date_to" required>
-                <h2>Plan</h2> <input type="text" name="action" required/>
+                <h2>Date from</h2> <input type="datetime-local" name="date_from" value="<?php echo $_SESSION["date_from"];  ?>"   required>
+                <h2>Date to</h2> <input type="datetime-local" name="date_to" value="<?php echo $_SESSION["date_to"];  ?>" required>
+                <h2>Plan</h2> <input type="text" name="action" value="<?php echo $_SESSION["action"];  ?>" required/>
                 <br><select name="kind">
                     <option value="1">science</option>
                     <option value="2">job</option>
@@ -54,6 +54,15 @@
                 echo "$wrong";
                 $_SESSION['error']=null;
             }
+
+
+            if (isset($_SESSION['message']))
+                {
+                    $success=$_SESSION['message'];
+                    echo "$success";
+                    $_SESSION['message']=null;
+
+                }
             ?>
             <br>
             <input type="hidden" name="_token" value="{{csrf_token()}}">

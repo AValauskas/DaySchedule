@@ -21,10 +21,13 @@ Route::get('/registration', function () {
 Route::get('/login', function () {
     return view('pages.login');
 });
+
 Route::post('/store', 'UserController@store');
 Route::post('/log', 'UserController@log');
 Route::get('/logout', 'UserController@logout');
 Route::get('/addaction', 'UserController@addaction');
+Route::get('/editaction', 'UserController@editaction');
+
 
 Route::get('/Main', function () {
     return view('pages.Main');
@@ -36,4 +39,10 @@ Route::get('/Day', function () {
     return view('pages.Day');
 });
 
+Route::get('/Today', function () {
+    return view('pages.Today');
+});
 
+Route::get('/Editpost', function () {
+    return view('pages.Editpost');
+});

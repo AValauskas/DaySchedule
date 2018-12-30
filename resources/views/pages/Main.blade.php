@@ -17,7 +17,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Day Schedule</a>
+            <a class="navbar-brand" href="../public/Main">Day Schedule</a>
         </div>
         <ul class="nav navbar-nav">
 
@@ -143,7 +143,7 @@ for ($day = 1; $day <= $day_count; $day++, $str++) {
         <li class="list-inline-item"><a href="../public/Day" class="btn btn-link">add action&gt;</a></li>
 
     </ul>
-    <p class="text-right"><a href="../public/Main">Today</a></p>
+    <p class="text-right"><a href="../public/Today">Today</a></p>
     <table class="table table-bordered">
         <thead>
         <tr>

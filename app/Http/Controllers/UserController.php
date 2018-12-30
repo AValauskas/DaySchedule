@@ -189,5 +189,77 @@ class UserController extends Controller
     }
 
 
+    public function editaction(request $request)
+    {
+        $date_from=$request->input('date_from');
+        $date_to=$request->input('date_to');
+        $action=$request->input('action');
+        $kind=$request->input('kind');
+        $pid=$request->input('fk');
+        /* var_dump($date_from);
+         var_dump($date_to);
+         die;*/
+
+        $_SESSION["date_from"]=$date_from;
+        $_SESSION["date_to"]=$date_to;
+        $_SESSION["action"]=$action;
+        $_SESSION["kind"]=$kind;
+
+
+        $_SESSION['error']=null;
+        $uid= $_SESSION['userid'];
+        $date = strtotime($date_from);
+        $date2= strtotime($date_to);
+        $time=NOW();
+        $timenow=strtotime($time);
+
+        if ( $timenow>=  $date )
+        {
+            $_SESSION['error']="date is passed";
+            return redirect('/Day');
+        }
+        elseif ($date>=$date2)
+        {
+            $_SESSION['error']="wrong date";
+            return redirect('/Day');
+        }
+        else {
+            $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
+            if (!$dbc) {
+                die ("Can't connect to MySQL:" . mysqli_error($dbc));
+            }
+
+
+            // $sqlfindt ="select * from post where (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to')";
+            $sqlfind ="select * from post where (datetime_from <='$date_from' and datetime_to >= '$date_to') or (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to') or (datetime_from <='$date_from' and datetime_to >'$date_from' and datetime_to <= '$date_to') ";
+           // var_dump($sqlfind);
+            // die;
+
+
+            $data = mysqli_query($dbc, $sqlfind);
+            $row = mysqli_fetch_assoc($data);
+            if ( is_null($row['text'])|| ($row['id_Post']=$pid)) {
+                $sql = "update post set text='$action',datetime_from ='$date_from',datetime_to ='$date_to',category='$kind' where id_Post='$pid'";
+
+                if (mysqli_query($dbc, $sql)) {
+                    $_SESSION['message'] = "Succesfully edited";
+
+                    $_SESSION["date_from"] = null;
+                    $_SESSION["date_to"] = null;
+                    $_SESSION["action"] = null;
+                    $_SESSION["kind"] = null;
+                    return redirect('/Day');
+                }
+            }
+            else{
+                $_SESSION['error']="at this time post is already written";
+            }
+
+            return redirect('/Day');
+        }
+
+    }
+
+
 
 }

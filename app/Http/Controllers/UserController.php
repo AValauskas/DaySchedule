@@ -160,7 +160,7 @@ class UserController extends Controller
 
 
            // $sqlfindt ="select * from post where (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to')";
-            $sqlfind ="select * from post where (datetime_from <='$date_from' and datetime_to >= '$date_to') or (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to') or (datetime_from <='$date_from' and datetime_to >'$date_from' and datetime_to <= '$date_to') ";
+            $sqlfind ="select * from post where (datetime_from <='$date_from' and datetime_to >= '$date_to') or (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to') or (datetime_from <='$date_from' and datetime_to >'$date_from' and datetime_to <= '$date_to') or (datetime_from >='$date_from' and datetime_to <= '$date_to')";
            //var_dump($sqlfindt);
           // die;
 
@@ -196,9 +196,6 @@ class UserController extends Controller
         $action=$request->input('action');
         $kind=$request->input('kind');
         $pid=$request->input('fk');
-        /* var_dump($date_from);
-         var_dump($date_to);
-         die;*/
 
         $_SESSION["date_from"]=$date_from;
         $_SESSION["date_to"]=$date_to;
@@ -231,14 +228,19 @@ class UserController extends Controller
 
 
             // $sqlfindt ="select * from post where (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to')";
-            $sqlfind ="select * from post where (datetime_from <='$date_from' and datetime_to >= '$date_to') or (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to') or (datetime_from <='$date_from' and datetime_to >'$date_from' and datetime_to <= '$date_to') ";
-           // var_dump($sqlfind);
-            // die;
+            $sqlfind ="select count(*) from post where (datetime_from <='$date_from' and datetime_to >= '$date_to') or (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to') or (datetime_from <='$date_from' and datetime_to >'$date_from' and datetime_to <= '$date_to') or (datetime_from >='$date_from' and datetime_to <= '$date_to')";
+
 
 
             $data = mysqli_query($dbc, $sqlfind);
             $row = mysqli_fetch_assoc($data);
-            if ( is_null($row['text'])|| ($row['id_Post']=$pid)) {
+           $coun= $row['count(*)'];
+           $num=intval($coun);
+           $check=1;
+
+
+            if ( $num<=$check) {
+
                 $sql = "update post set text='$action',datetime_from ='$date_from',datetime_to ='$date_to',category='$kind' where id_Post='$pid'";
 
                 if (mysqli_query($dbc, $sql)) {
@@ -259,7 +261,11 @@ class UserController extends Controller
         }
 
     }
+    public function deletepost(request $request)
+    {
 
+        echo"labas";
+    }
 
 
 }

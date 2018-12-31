@@ -27,6 +27,8 @@ Route::post('/log', 'UserController@log');
 Route::get('/logout', 'UserController@logout');
 Route::get('/addaction', 'UserController@addaction');
 Route::get('/editaction', 'UserController@editaction');
+Route::get('/deletepost', 'UserController@deletepost');
+
 
 
 Route::get('/Main', function () {

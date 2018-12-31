@@ -40,7 +40,7 @@ if (!$dbc) {
 $today= date("Y-m-d");
 $tomorrow=date('Y-m-d', strtotime($today. ' + 1 days'));
 //$newformat = date('Y-m-d',$time);
-$sqlfind ="select * from post where datetime_from > '$today' and datetime_from < '$tomorrow'";
+$sqlfind ="select * from post where datetime_from > '$today' and datetime_from < '$tomorrow' order by datetime_from";
 //var_dump($nowdate);
 $data = mysqli_query($dbc, $sqlfind);
 
@@ -65,7 +65,9 @@ $data = mysqli_query($dbc, $sqlfind);
         <td><?php echo $row['text'];?></td>
         <td><?php echo $row['category'];?></td>
         <td><?php echo" <a href=../public/Editpost?postid=",urlencode($idd),"><input type=button id='$idd' value='Edit' ></a> " ?></td>
+        <td><?php echo" <a href=/deletepost?postid=",urlencode($idd),"><input type=button id='$idd' value='delete' ></a> " ?></td>
     </tr>
+
 
     <?php }?>
 

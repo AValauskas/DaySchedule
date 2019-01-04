@@ -1,32 +1,7 @@
+@include('pages.Menu')
 <!DOCTYPE html>
 
 <html>
-
-
-<head>
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/Calender.css') }}" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
-
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="../public/Main">Day Schedule</a>
-        </div>
-        <ul class="nav navbar-nav">
-
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-
-            <li class="{{Request::is('/logout')?'active':null}}"><a href="{{url('/logout')}}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>        </ul>
-    </div>
-</nav>
 
 <body>
 
@@ -65,7 +40,7 @@ $data = mysqli_query($dbc, $sqlfind);
         <td><?php echo $row['text'];?></td>
         <td><?php echo $row['category'];?></td>
         <td><?php echo" <a href=../public/Editpost?postid=",urlencode($idd),"><input type=button id='$idd' value='Edit' ></a> " ?></td>
-        <td><?php echo" <a href=/deletepost?postid=",urlencode($idd),"><input type=button id='$idd' value='delete' ></a> " ?></td>
+        <td><?php echo" <a href=../public/deletepost?id=",urlencode($idd),"><input type=button id='$idd' value='delete' ></a> " ?></td>
     </tr>
 
 

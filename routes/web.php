@@ -29,6 +29,8 @@ Route::get('/addaction', 'UserController@addaction');
 Route::get('/editaction', 'UserController@editaction');
 Route::get('/deletepost', 'UserController@deletepost');
 
+//Route::put('deletepost', 'UserController@deletepost');
+
 
 
 Route::get('/Main', function () {
@@ -47,4 +49,8 @@ Route::get('/Today', function () {
 
 Route::get('/Editpost', function () {
     return view('pages.Editpost');
+});
+
+Route::get('/Diary', function () {
+    return view('pages.Diary');
 });

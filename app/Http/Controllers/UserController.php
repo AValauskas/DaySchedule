@@ -167,6 +167,7 @@ class UserController extends Controller
 
             $data = mysqli_query($dbc, $sqlfind);
             $row = mysqli_fetch_assoc($data);
+
             if ( is_null($row['text'])) {
                 $sql = "insert into post(text,datetime_from,datetime_to,status,category,fk_Personid_Person) values('$action','$date_from','$date_to','1','$kind','$uid')";
 
@@ -263,8 +264,14 @@ class UserController extends Controller
     }
     public function deletepost(request $request)
     {
-
-        echo"labas";
+        $postid=$_GET['id'];
+        $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
+        if (!$dbc) {
+            die ("Can't connect to MySQL:" . mysqli_error($dbc));
+        }
+        $sql = "DELETE post from post where id_Post='$postid'";
+        mysqli_query($dbc, $sql);
+        return redirect('/Today');
     }
 
 

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 
 <html>
-
-
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url('/css/Calender.css') }}" />
     <meta charset="utf-8">
@@ -17,7 +15,7 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Day Schedule</a>
+            <a class="navbar-brand" href="../public/Main">Day Schedule</a>
         </div>
         <ul class="nav navbar-nav">
 

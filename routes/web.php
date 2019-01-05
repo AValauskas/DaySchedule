@@ -25,11 +25,13 @@ Route::get('/login', function () {
 Route::post('/store', 'UserController@store');
 Route::post('/log', 'UserController@log');
 Route::get('/logout', 'UserController@logout');
-Route::get('/addaction', 'UserController@addaction');
-Route::get('/editaction', 'UserController@editaction');
-Route::get('/deletepost', 'UserController@deletepost');
-
-//Route::put('deletepost', 'UserController@deletepost');
+Route::get('/addaction', 'PostsController@addaction');
+Route::get('/editaction', 'PostsController@editaction');
+Route::get('/deletepost', 'PostsController@deletepost');
+Route::get('/adddiary', 'DiaryController@adddiary');
+Route::get('/editdiary', 'DiaryController@editdiary');
+Route::get('/deletediary', 'DiaryController@deletediary');
+Route::get('/editinfo', 'UserController@editinfo');
 
 
 
@@ -53,4 +55,11 @@ Route::get('/Editpost', function () {
 
 Route::get('/Diary', function () {
     return view('pages.Diary');
+});
+
+Route::get('/editcustomerinfo', function () {
+    return view('pages.editcustomerinfo');
+});
+Route::get('/Todaydisplay', function () {
+    return view('pages.Todaydisplay');
 });

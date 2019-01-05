@@ -16,6 +16,16 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="../public/Main">Day Schedule</a>
+
+
+
+            <ul class="nav navbar-nav">
+                <li><a href="../public/editcustomerinfo">Edit personal info</a></li>
+                <li><a href="../public/Todaydisplay">Display today</a></li>
+            </ul>
+
+
+
         </div>
         <ul class="nav navbar-nav">
 

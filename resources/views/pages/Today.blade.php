@@ -49,9 +49,6 @@ $data = mysqli_query($dbc, $sqlfind);
     </tbody>
 </table>
 
-
-
-
 </body>
 
 

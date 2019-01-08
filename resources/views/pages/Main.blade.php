@@ -12,7 +12,16 @@ if (isset($_GET['ym'])) {
     $timestamp = strtotime($ym . '-01');
     $prev = date('Y-m', strtotime('-1 month', $timestamp));
     $next = date('Y-m', strtotime('+1 month', $timestamp));
+    //$transdate = date2('m-d-Y', time());
+    $month = date("m");
+    if (  $month==$month_num  )
+        {
+            $day_num=date("j");
+        }
+        else
+            {
     $day_num=50;
+    }
 }
 else
    {
@@ -131,6 +140,8 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
 
          <td onclick='tdclick(<?php echo"$day";?>,<?php echo"$month_num";?>,<?php echo"$year";?>);'
         <?php
+
+
         if($day==$day_num) echo " bgcolor='yellow'"; //highlight TODAY in yellow?>
          >  <?php echo"$day";
              $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
@@ -198,51 +209,7 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
 
 
 
-<table border="1px;" width="100%" >
-    <tr align="center">
-        <td>Product</td>
-        <td>quantity</td>
-        <td>Price</td>
-        <td>Totall</td>
-    </tr>
-    <tr align="center">
-        <td>Item-1</td>
-        <td>Item-1</td>
-        <td>
-            <table border="1px;" width="100%">
-                <tr align="center" bgcolor="#FF0000">
-                    <td>Name1</td>
-                    <td>Price1</td>
-                </tr>
-                <tr align="center">
-                    <td>Name2</td>
-                    <td>Price2</td>
-                </tr>
-                <tr align="center">
-                    <td>Name3</td>
-                    <td>Price3</td>
-                </tr>
-                <tr>
-                    <td>Name4</td>
-                    <td>Price4</td>
-                </tr>
-            </table>
-        </td>
-        <td>Item-1</td>
-    </tr>
-    <tr align="center">
-        <td>Item-2</td>
-        <td>Item-2</td>
-        <td>Item-2</td>
-        <td>Item-2</td>
-    </tr>
-    <tr align="center">
-        <td>Item-3</td>
-        <td>Item-3</td>
-        <td>Item-3</td>
-        <td>Item-3</td>
-    </tr>
-</table>
+
 
 
 </body>

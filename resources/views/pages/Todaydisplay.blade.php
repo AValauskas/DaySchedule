@@ -15,9 +15,10 @@ if (!$dbc) {
 }
 
 $today= date("Y-m-d");
-$tomorrow=date('Y-m-d', strtotime($today. ' + 1 days'));
+$tomorrow=date('Y-m-d', strtotime($date. ' + 1 days'));
+
 //$newformat = date('Y-m-d',$time);
-$sqlfind ="select * from post where datetime_from > '$today' and datetime_from < '$tomorrow' order by datetime_from";
+$sqlfind ="select * from post where datetime_from > '$date' and datetime_from < '$tomorrow' order by datetime_from";
 //var_dump($nowdate);
 $data = mysqli_query($dbc, $sqlfind);
 
@@ -50,6 +51,51 @@ $data = mysqli_query($dbc, $sqlfind);
 
     </tbody>
 </table>
+
+
+<?php
+
+date_default_timezone_set('UTC');
+//$date = date('Y-m-d H:i:s');
+$hour=date("H");
+var_dump($date);
+var_dump($today);
+var_dump($hour);
+
+if(($hour>=20 && $date<=$today )|| $date<$today)
+    {
+?>
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <form class="" action="{{URL::to('/evaluate')}}" method="get">
+            @csrf
+            <h3>Your day evaluation!</h3><br>
+            <select  name="evaluation" >
+                <option value="no">Choose evaluate</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+
+            </select>
+            <input type="hidden" name="dat" value="{{$date}}">
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <button type=submit name="button">Patvirtinti</button>
+        </form>
+    </div>
+</div>
+<?php
+}
+?>
+
+
+
 
 </body>
 

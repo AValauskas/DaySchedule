@@ -34,7 +34,7 @@ $data = mysqli_query($dbc, $sqlfind);
     </tr>
 
     </thead>
-    <tbody>
+    <tbody>busena
     <?php
     while($row = mysqli_fetch_array($data)) {?>
     <tr>
@@ -44,6 +44,21 @@ $data = mysqli_query($dbc, $sqlfind);
         <td><?php echo $row['category'];?></td>
         <td><?php echo" <a href=../public/Editpost?postid=",urlencode($idd),"><input type=button id='$idd' value='Edit' ></a> " ?></td>
         <td><?php echo" <a href=../public/deletepost?id=",urlencode($idd),"><input type=button id='$idd' value='delete' ></a> " ?></td>
+        <td>
+
+                    <form class="" action="{{URL::to('/poststatus')}}" method="get">
+                        @csrf
+                        <select  name="poststat" onchange="this.form.submit()">
+                            <option value="no"  disabled selected>status</option>
+                            <option value="2">done</option>
+                            <option value="4">failed</option>
+                        </select>
+                        <input type="hidden" name="fk" value="{{$idd}}">
+                        <input type="hidden" name="dat" value="{{$date}}">
+                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    </form>
+
+        </td>
     </tr>
 
 
@@ -58,9 +73,10 @@ $data = mysqli_query($dbc, $sqlfind);
 date_default_timezone_set('UTC');
 //$date = date('Y-m-d H:i:s');
 $hour=date("H");
-var_dump($date);
-var_dump($today);
-var_dump($hour);
+$sql="select * from rate where date='$date'";
+$data2 = mysqli_query($dbc, $sql);
+$row = mysqli_fetch_array($data2);
+$value =$row['value'];
 
 if(($hour>=20 && $date<=$today )|| $date<$today)
     {
@@ -70,8 +86,8 @@ if(($hour>=20 && $date<=$today )|| $date<$today)
         <form class="" action="{{URL::to('/evaluate')}}" method="get">
             @csrf
             <h3>Your day evaluation!</h3><br>
-            <select  name="evaluation" >
-                <option value="no">Choose evaluate</option>
+            <select  name="evaluation" required>
+                <option value="no"  disabled selected><?php echo"$value";?></option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -84,6 +100,7 @@ if(($hour>=20 && $date<=$today )|| $date<$today)
                 <option value="10">10</option>
 
             </select>
+
             <input type="hidden" name="dat" value="{{$date}}">
             <input type="hidden" name="_token" value="{{csrf_token()}}">
             <button type=submit name="button">Patvirtinti</button>
@@ -96,8 +113,6 @@ if(($hour>=20 && $date<=$today )|| $date<$today)
 
 
 
-
-</body>
 
 
 

@@ -163,4 +163,21 @@ class PostsController extends Controller
         return redirect('/Today');
     }
 
+    public function poststatus(request $request)
+    {
+        $poststat=$request->input('poststat');
+        $postid=$request->input('fk');
+        $date=$request->input('dat');
+        $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
+        if (!$dbc) {
+            die ("Can't connect to MySQL:" . mysqli_error($dbc));
+        }
+        $sql="update post set status='$poststat' where id_Post='$postid'";
+        if(mysqli_query($dbc, $sql)) {
+
+            return redirect("/Todaydisplay?ymd=" . "$date");
+        }
+    }
+
+
 }

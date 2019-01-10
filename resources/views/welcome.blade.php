@@ -7,69 +7,27 @@ inisession();
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>GoSchedule</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="{{URL::asset('/css/Welcome.css')}}" rel="stylesheet" type="text/css" >
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
+            body{
+                text-align:center;
+                background:url({{url('images/Background.png')}}) no-repeat center fixed;
+                background-size: cover;
             }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+    <div>
+        <img src="{{URL::asset('/images/GoSchedule.png')}}">
+    </div>
+        <div class="container">
             @if (Route::has('login'))
-                <div class="top-right links">
+                <div>
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
@@ -81,18 +39,34 @@ inisession();
                     @endauth
                 </div>
             @endif
-
-            <div class="content">
-                <a href=../public/login><input type=button value='Prisijungti'></a>
-                <a href=../public/registration><input type=button value='Registruotis'></a>
-                <br>
-                <br>
-                <div class="title m-b-md">
-                    Day Schedule
+            <p>
+                LOG IN
+            </p>
+                <div>
+                <form action="{{URL::to('/log')}}" method="post">
+                    @csrf
+                    <div class=form-group">
+                        <input type="text" name="login" placeholder="Username" class="form-control" value="<?php echo $_SESSION['name_login'] ?>" required><br>
+                        <?php echo $_SESSION['name_error']; ?>
+                    </div>
+                    <div class=form-group">
+                        <input type="password" name="password" placeholder="Password" class="form-control" value="" required><br>
+                        <?php echo $_SESSION['pass_error']; ?>
+                    </div>
+                    <div class=form-group">
+                          <input type="hidden" name="_token" value="{{csrf_token()}}">
+                    </div>
+                    <div class="row">
+                        <button type=submit class="btn btn-lg" name="button">LOG IN</button>
+                    </div>
+                </form>
                 </div>
-
-
+            <div class="row">
+                <a href=../public/registration><input type=button class="btn btn-lg" value='REGISTER'></a>
+                <a href=../public/registration><input type=button class="btn btn-lg" id="small" value='FORGOT PASSWORD'></a>
             </div>
+            <br>
+            <br>
         </div>
     </body>
 </html>

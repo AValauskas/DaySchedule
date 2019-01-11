@@ -8,6 +8,7 @@
         width: 1100px;
         border-width: 1px;
         z-index: 10;
+
     }
     #row1:hover{
         background-color: yellow;
@@ -37,7 +38,7 @@ if (!$dbc) {
 
 $today= date("Y-m-d");
 $tomorrow=date('Y-m-d', strtotime($date. ' + 1 days'));
-
+$prev=date('Y-m-d', strtotime($date. ' - 1 days'));
 //$newformat = date('Y-m-d',$time);
 $sqlfind ="select * from post where datetime_from > '$date' and datetime_from < '$tomorrow' order by datetime_from";
 //var_dump($sqlfind);
@@ -49,9 +50,12 @@ $left=202;
 $count=0;
 ?>
 
-
-<center/><h3><?php echo $date;?></h3></center>
-
+<ul class="list-inline">
+    <li class="list-inline-item"><a href="?ymd=<?= $prev; ?>" class="btn btn-link">&lt; prev</a></li>
+    <li class="list-inline-item"><span class="title"><?php echo "$date"; ?></span></li>
+    <li class="list-inline-item"><a href="?ymd=<?= $tomorrow; ?>" class="btn btn-link">next &gt;</a></li>
+    <li class="list-inline-item"><a href="?ymd=<?= $today; ?>" class="btn btn-link">today &gt;</a></li>
+</ul>
 
 <?php
 $range = hoursRange();
@@ -125,7 +129,16 @@ $range = hoursRange();
             if( $date==$today ){
             ?>
             <li class="list-inline-item"><a href="../public/Diary" class="btn btn-link">Write Diary&gt;</a></li>
+            <?php }
+
+            if( $date>=$today ){
+            ?>
+            <td><?php echo" <a href=../public/Day?dt=",urlencode($date),"><input type=button id='$date' value='add action' ></a> " ?></td>
+
             <?php }?>
+
+
+
 
             <?php
             $sql2="select * from diary where date='$date'";
@@ -149,6 +162,48 @@ $range = hoursRange();
             }?>
 
 
+        <center><h2>Day Completed</h2></center>
+        <?php
+            $uid= $_SESSION['userid'];
+            $minfail=0;
+            $minsucces=0;
+            $minwaiting=0;
+            $total=0;
+            $sqlfail="select * from post where fk_Personid_Person ='$uid' and datetime_from > '$date' and datetime_from < '$tomorrow' and status='4'";
+            $sqlsucces="select * from post where fk_Personid_Person ='$uid' and datetime_from > '$date' and datetime_from < '$tomorrow' and status='2'";
+            $sqlwaiting="select * from post where fk_Personid_Person ='$uid' and datetime_from > '$date' and datetime_from < '$tomorrow' and status='1'";
+            $datafail = mysqli_query($dbc, $sqlfail);
+            $datasucces = mysqli_query($dbc, $sqlsucces);
+            $datawaiting = mysqli_query($dbc, $sqlwaiting);
+            while($rowfail = mysqli_fetch_array($datafail))
+            {
+                $time1 = strtotime($rowfail['datetime_to']);
+                $time2 = strtotime($rowfail['datetime_from']);
+                $minfail=$minfail+$time1-$time2;
+
+            }
+            while($rowsucces = mysqli_fetch_array($datasucces))
+            {
+                $time1 = strtotime($rowsucces['datetime_to']);
+                $time2 = strtotime($rowsucces['datetime_from']);
+                $minsucces=$minsucces+$time1-$time2;
+            }
+            while($rowwaiting = mysqli_fetch_array($datawaiting))
+            {
+                $time1 = strtotime($rowwaiting['datetime_to']);
+                $time2 = strtotime($rowwaiting['datetime_from']);
+                $minwaiting=$minwaiting+$time1-$time2;
+
+            }
+            $total=$minfail+$minsucces+$rowwaiting;
+            if ($total>0)
+                {
+                    $percent=round($minsucces/$total*100);
+
+                }else{$percent=0;}
+            ?>
+
+<center><p style="font-size:40px;"><?php echo $percent;?>%</p></center>
     </div>
 
 

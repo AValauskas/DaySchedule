@@ -32,6 +32,16 @@ $_SESSION["action"]=$row['text'];
 $datefromtoprint = new DateTime($ch);
 $datetotoprint = new DateTime($ch2);
 
+$datefrom = strtotime($ch);
+
+
+
+$today= date('Y-m-d\TH:i');
+
+$time1 = strtotime($ch2);
+$time2 = strtotime($today);
+var_dump($today);
+
 ?>
 
 <body>
@@ -90,6 +100,9 @@ $datetotoprint = new DateTime($ch2);
     <button type=submit name="button">Delete</button>
 </form>
 
+
+<?php if ($time1<=$time2){?>
+
 <form class="" action="{{URL::to('/poststatus')}}" method="get">
     @csrf
     <select  name="poststat" onchange="this.form.submit()">
@@ -101,7 +114,7 @@ $datetotoprint = new DateTime($ch2);
     <input type="hidden" name="dat" value="{{ $datefromtoprint->format('Y-m-d')}}">
     <input type="hidden" name="_token" value="{{csrf_token()}}">
 </form>
-
+<?php  } ?>
 </body>
 
 

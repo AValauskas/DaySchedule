@@ -68,3 +68,9 @@ Route::get('/editcustomerinfo', function () {
 Route::get('/Todaydisplay', function () {
     return view('pages.Todaydisplay');
 });
+Route::get('/DiaryDisplay', function () {
+    return view('pages.DiaryDisplay');
+});
+Route::get('/DisplayValues', function () {
+    return view('pages.DisplayValues');
+});

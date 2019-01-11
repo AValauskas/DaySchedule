@@ -153,14 +153,16 @@ class PostsController extends Controller
     }
     public function deletepost(request $request)
     {
-        $postid=$_GET['id'];
+        $date=$request->input('dat');
+        $postid=$request->input('fk');
         $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
         if (!$dbc) {
             die ("Can't connect to MySQL:" . mysqli_error($dbc));
         }
+
         $sql = "DELETE post from post where id_Post='$postid'";
         mysqli_query($dbc, $sql);
-        return redirect('/Today');
+        return redirect("/Todaydisplay?ymd=" . "$date");
     }
 
     public function poststatus(request $request)

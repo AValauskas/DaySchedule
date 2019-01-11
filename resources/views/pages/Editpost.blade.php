@@ -22,6 +22,7 @@ $row = mysqli_fetch_array($data);
 
 
 $_SESSION["date_from"]=$row['datetime_from'];
+$_SESSION["date_to"]=$row['datetime_to'];
 
 $ch=$_SESSION["date_from"];
 $ch2=$_SESSION["date_to"];
@@ -79,6 +80,28 @@ $datetotoprint = new DateTime($ch2);
         </form>
     </div>
 </div>
+
+<form class="" action="{{URL::to('/deletepost')}}" method="get">
+    @csrf
+
+    <input type="hidden" name="fk" value="{{$id}}">
+    <input type="hidden" name="dat" value="{{ $datefromtoprint->format('Y-m-d')}}">
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
+    <button type=submit name="button">Delete</button>
+</form>
+
+<form class="" action="{{URL::to('/poststatus')}}" method="get">
+    @csrf
+    <select  name="poststat" onchange="this.form.submit()">
+        <option value="no"  disabled selected>status</option>
+        <option value="2">done</option>
+        <option value="4">failed</option>
+    </select>
+    <input type="hidden" name="fk" value="{{$id}}">
+    <input type="hidden" name="dat" value="{{ $datefromtoprint->format('Y-m-d')}}">
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
+</form>
+
 </body>
 
 

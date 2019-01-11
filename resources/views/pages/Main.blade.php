@@ -54,13 +54,14 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
 }
 ?>
 <style>
+    .container-fluid{
+        width: 100%;
+    }
     .container {
         font-family: 'Montserrat', sans-serif;
-        margin: 60px auto;
     }
     .list-inline {
         text-align: center;
-        margin-bottom: 30px;
     }
     .title {
         font-weight: bold;
@@ -93,7 +94,6 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
 </style>
 
 <html lang="en">
-
 <body>
 <div class="container">
     <ul class="list-inline">
@@ -104,9 +104,13 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
         <li class="list-inline-item"><a href="../public/Diary" class="btn btn-link">Write Diary&gt;</a></li>
     </ul>
     <p class="text-right"><a href="../public/Today">Today</a></p>
-
 </div>
-<div class="container">
+<div class="container-fluid">
+    <div class="row">
+    <div class ="col-lg-2">
+        @include('pages.SideMenu')
+    </div>
+    <div class="col-lg-10">
 <?php
     echo "<table cellspacing=0 cellpadding=5 frame='all' rules='all' style='border:#808080 1px solid;'>
         <caption>$month_name $year</caption>
@@ -190,6 +194,8 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
     }
     echo "</tr></table>";
         ?>
+    </div>
+    </div>
 </div>
 
 <script>

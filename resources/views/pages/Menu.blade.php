@@ -21,7 +21,7 @@
 
             <ul class="nav navbar-nav">
                 <li><a href="../public/editcustomerinfo">Edit personal info</a></li>
-                <li><a href="../public/Todaydisplay">Display today</a></li>
+                <li><a href="../public/DiaryDisplay">Diary</a></li>
             </ul>
 
 

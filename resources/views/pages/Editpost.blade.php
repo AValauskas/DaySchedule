@@ -24,9 +24,12 @@ $row = mysqli_fetch_array($data);
 $_SESSION["date_from"]=$row['datetime_from'];
 
 $ch=$_SESSION["date_from"];
+$ch2=$_SESSION["date_to"];
 $_SESSION["date_to"]=$row['datetime_to'];
 $_SESSION["action"]=$row['text'];
 
+$datefromtoprint = new DateTime($ch);
+$datetotoprint = new DateTime($ch2);
 
 ?>
 
@@ -38,9 +41,10 @@ $_SESSION["action"]=$row['text'];
             @csrf
             <h3>Edit Action</h3><br>
             <div>
-                <h2>Date from</h2> <input type="datetime" name="date_from" value="<?php echo $_SESSION["date_from"];  ?>"   required>
-                <h2>Date to</h2> <input type="datetime" name="date_to" value="<?php echo $_SESSION["date_to"];  ?>" required>
+                <h2>Date from</h2> <input type="datetime-local" name="date_from" value="<?php echo $datefromtoprint->format('Y-m-d\TH:i');?>"   required>
+                <h2>Date to</h2> <input type="datetime-local" name="date_to" value="<?php echo $datetotoprint->format('Y-m-d\TH:i');?>" required>
                 <h2>Plan</h2> <input type="text" name="action" value="<?php echo $_SESSION["action"];  ?>" required/>
+                <br>
                 <br><select name="kind">
                     <option value="1">science</option>
                     <option value="2">job</option>

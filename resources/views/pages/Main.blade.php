@@ -102,6 +102,9 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
         <li class="list-inline-item"><a href="?ym=<?= $next; ?>" class="btn btn-link">next &gt;</a></li>
         <li class="list-inline-item"><a href="../public/Day" class="btn btn-link">add action&gt;</a></li>
         <li class="list-inline-item"><a href="../public/Diary" class="btn btn-link">Write Diary&gt;</a></li>
+        <li class="list-inline-item"><a href="../public/DisplayValues" class="btn btn-link">Rates&gt;</a></li>
+
+
     </ul>
     <p class="text-right"><a href="../public/Today">Today</a></p>
 </div>

@@ -34,7 +34,7 @@ $data = mysqli_query($dbc, $sqlfind);
     </tr>
 
     </thead>
-    <tbody>busena
+    <tbody>
     <?php
     while($row = mysqli_fetch_array($data)) {?>
     <tr>
@@ -110,12 +110,28 @@ if(($hour>=20 && $date<=$today )|| $date<$today)
 <?php
 }
 ?>
+<?php
+$sql2="select * from diary where date='$date'";
+$data3 = mysqli_query($dbc, $sql2);
+$row = mysqli_fetch_array($data3);
+if(isset($row))
+    {
+?>
 
+<div class="container">
+    <div class="col-md-6 col-md-offset-3" >
+        <h2> <?php echo"$date "?> day diary</h2>
+       <?php
 
+        $toprint =$row['text'];
+        echo " $toprint";?>
+    </div>
+</div>
+<?php
+}
+?>
 
-
-
-
+</body>
 
 </html>
 

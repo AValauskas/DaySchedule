@@ -15,18 +15,19 @@ if(isset($_GET['from']))
     $fromtochange=$_GET['from'];
     $fromtoprint=$_GET['from'];
     $to=$_GET['to'];
+    $toeff=date('Y-m-d', strtotime($to. ' + 1 days'));
     $toshow=$to;
     if (  $from>$to  )
         {
             $message="wrong date";
 
         }
-    $result = $dbc->query("select value, COUNT(*) AS 'num' from rate where date >='$from' and date<='$to' and fk_Personid_Person='$uid' group by value");
+    $result = $dbc->query("select value, COUNT(*) AS 'num' from rate where date >='$from' and date<='$toeff' and fk_Personid_Person='$uid' group by value");
 
    // $result2 = $dbc->query("select category, COUNT(*) AS 'num' from post where date >='$from' and date<='$to' group by category");
-    $result2 = $dbc->query("select category, COUNT(*) AS 'num' from post where datetime_from >='$from' and datetime_from<='$to' and fk_Personid_Person='$uid' group by category");
+    $result2 = $dbc->query("select category, COUNT(*) AS 'num' from post where datetime_from >='$from' and datetime_from<='$toeff' and fk_Personid_Person='$uid' group by category");
 
-    $result3 = $dbc->query("select * from post where datetime_from >='$from' and datetime_from<='$to' and fk_Personid_Person='$uid'");
+    $result3 = $dbc->query("select * from post where datetime_from >='$from' and datetime_from<='$toeff' and fk_Personid_Person='$uid'");
     $minarray = array(0, 0, 0, 0,0);
     foreach($result3 as $value){
         $dfrom=$value['datetime_from'];

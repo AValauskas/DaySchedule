@@ -232,7 +232,7 @@ $range = hoursRange();
    // $allfrom=$allfromtocount-$allfrom;
 
     $hoursto=date('H', $date2);
-    $hoursto2=date('2', $date2);
+    $hoursto2=date('h', $date2);
     $minto=date('i', $date2);
     $allto= ($hoursto*60+$minto)/2;
    // $allto=$alltotocount-$allto;

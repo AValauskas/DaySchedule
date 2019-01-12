@@ -11,13 +11,13 @@ if(isset($_GET['from']))
     {
         $from=$_GET['from'];
         $to=$_GET['to'];
-        $sql="select * from diary where fk_Personid_Person='$uid' and date >='$from' and date<='$to' ";
+        $sql="select * from diary where fk_Personid_Person='$uid' and date >='$from' and date<='$to' order by date ";
     }
     else
         {
             $from="";
             $to="";
-            $sql="select * from diary where fk_Personid_Person='$uid' ";
+            $sql="select * from diary where fk_Personid_Person='$uid' order by date ";
         }
 
 

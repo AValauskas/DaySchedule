@@ -107,6 +107,54 @@ else return true;
         return $times;
     }
 
+        function Efficiencycalculate($date,$tomorrow)
+        {
+            $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
+            if (!$dbc) {
+                die ("Can't connect to MySQL:" . mysqli_error($dbc));
+            }
+            $uid= $_SESSION['userid'];
+            $minfail=0;
+            $minsucces=0;
+            $minwaiting=0;
+            $total=0;
+            $sqlfail="select * from post where fk_Personid_Person ='$uid' and datetime_from > '$date' and datetime_from < '$tomorrow' and status='4'";
+            $sqlsucces="select * from post where fk_Personid_Person ='$uid' and datetime_from > '$date' and datetime_from < '$tomorrow' and status='2'";
+            $sqlwaiting="select * from post where fk_Personid_Person ='$uid' and datetime_from > '$date' and datetime_from < '$tomorrow' and status='1'";
+            $datafail = mysqli_query($dbc, $sqlfail);
+            $datasucces = mysqli_query($dbc, $sqlsucces);
+            $datawaiting = mysqli_query($dbc, $sqlwaiting);
+            while($rowfail = mysqli_fetch_array($datafail))
+            {
+                $time1 = strtotime($rowfail['datetime_to']);
+                $time2 = strtotime($rowfail['datetime_from']);
+                $minfail=$minfail+$time1-$time2;
+
+            }
+            while($rowsucces = mysqli_fetch_array($datasucces))
+            {
+                $time1 = strtotime($rowsucces['datetime_to']);
+                $time2 = strtotime($rowsucces['datetime_from']);
+                $minsucces=$minsucces+$time1-$time2;
+            }
+            while($rowwaiting = mysqli_fetch_array($datawaiting))
+            {
+                $time1 = strtotime($rowwaiting['datetime_to']);
+                $time2 = strtotime($rowwaiting['datetime_from']);
+                $minwaiting=$minwaiting+$time1-$time2;
+
+            }
+            $total=$minfail+$minsucces+$minwaiting;
+            if ($total>0)
+            {
+                $percent=round($minsucces/$total*100);
+
+            }else{$percent=0;}
+
+            return $percent;
+        }
+
+
 
 
 

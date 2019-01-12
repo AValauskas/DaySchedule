@@ -41,7 +41,7 @@ $tomorrow=date('Y-m-d', strtotime($date. ' + 1 days'));
 $prev=date('Y-m-d', strtotime($date. ' - 1 days'));
 //$newformat = date('Y-m-d',$time);
 $sqlfind ="select * from post where datetime_from > '$date' and datetime_from < '$tomorrow' order by datetime_from";
-//var_dump($sqlfind);
+var_dump($sqlfind);
 $data = mysqli_query($dbc, $sqlfind);
 $allfrom=0;
 $allto=0;

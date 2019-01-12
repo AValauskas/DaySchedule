@@ -1,6 +1,8 @@
 @include('pages.Menu')
 <!DOCTYPE html>
-
+<head>
+    <title>Schedule</title>
+</head>
 
 <?php
 
@@ -54,68 +56,66 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
 }
 ?>
 <style>
-    .container-fluid{
+    body,html{
+        height: 100%;
+    }
+    .calander{
         width: 100%;
     }
-    .container {
-        font-family: 'Montserrat', sans-serif;
-    }
-    .list-inline {
-        text-align: center;
-    }
-    .title {
-        font-weight: bold;
-        font-size: 26px;
-    }
-    th {
-        text-align: center;
-    }
     td {
-        height: 120px;
-        width: 120px;
-        text-align: right;
-        vertical-align:top
+        background: white;
+        vertical-align:top;
+    }
+    tr{
+        background: white;
     }
     td:hover{
         background-color: #66ff33;
     }
-    th:nth-of-type(6), td:nth-of-type(6) {
-        color: blue;
-    }
-    th:nth-of-type(7), td:nth-of-type(7) {
-        color: red;
-    }
     table{
-        align:"center";
+        width: 100%;
+        table-layout: fixed;
+        text-align: center;
+        text-transform: uppercase;
     }
-    tr.border_bottom td {
-        border-bottom:1pt solid black;
+    .row{
+        width: 100%;
+    }
+    .row#date_info{
+        background: #f7e6ad;
+        height: 75px;
+        width: 100%;
+        font-size: 400%;
+        text-align: center;
+        text-transform: uppercase;
     }
 </style>
 
 <html lang="en">
 <body>
-<div class="container">
-    <ul class="list-inline">
-        <li class="list-inline-item"><a href="?ym=<?= $prev; ?>" class="btn btn-link">&lt; prev</a></li>
-        <li class="list-inline-item"><span class="title"><?= "calender"; ?></span></li>
-        <li class="list-inline-item"><a href="?ym=<?= $next; ?>" class="btn btn-link">next &gt;</a></li>
-        <li class="list-inline-item"><a href="../public/Day" class="btn btn-link">add action&gt;</a></li>
+<div class="calander">
+    <div class="row" style="margin-right: 0px;margin-left: 0px;">
+        <div class ="col-lg-3" style="padding-right: 0px;padding-left: 0px;">
+            @include('pages.SideMenu')
+        </div>
 
-
-
-    </ul>
-</div>
-<div class="container-fluid">
-    <div class="row">
-    <div class ="col-lg-2">
-        @include('pages.SideMenu')
-    </div>
-    <div class="col-lg-10">
+        <div class="col-lg-9" style="padding-right: 0px;padding-left: 0px;">
 <?php
-    echo "<table cellspacing=0 cellpadding=5 frame='all' rules='all' style='border:#808080 1px solid;'>
-        <caption>$month_name $year</caption>
-        <tr align=left><th>M</th><th>Tu</th><th>W</th><th>Th</th><th>F</th><th>Sa</th><th>Su</th></tr>";
+    echo "
+        <div class='row' id=date_info>
+            <div class=col-lg-1>
+                <
+            </div>
+            <div class=col-lg-10>
+                $month_name $year
+            </div>
+            <div class=col-lg-1>
+                >
+            </div>
+        </div>
+        <div class='row' style='margin-right: 0px;margin-left: 0px;height: 100%'>
+        <table class='table-responsive' frame='all' rules='all' style='height: 100%'>
+        <tr style='text-align: center'><th>mon</th><th>tue</th><th>wed</th><th>thu</th><th>fri</th><th>sat</th><th>sun</th></tr>";
 
     $day = 1; //This variable will track the day of the month
     $wday = $first_week_day; //This variable will track the day of the week (0-6, with Sunday being 0)
@@ -124,7 +124,7 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
     {
         if ($firstweek) //Special case - first week (remember we initialized $first_week_day above)
         {
-            echo "<tr align=left>";
+            echo "<tr>";
             for ($i=1; $i<=$first_week_day; $i++)
             {
                 echo "<td> </td>"; //Put a blank cell for each day until you hit $first_week_day
@@ -132,7 +132,7 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
             $firstweek = false; //Great, we're done with the blank cells
         }
         if ($wday==0) //Start a new row every Sunday
-            echo "<tr align=left>";
+            echo "<tr>";
 
         //echo "<td onclick='tdclick(this);'";
        // echo "<td";
@@ -154,13 +154,14 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
                  die ("Can't connect to MySQL:" . mysqli_error($dbc));
              }
              $sql="select * from post where (datetime_from > '$dattoprint' and datetime_from < '$dattoprint2' ) or (datetime_to >'$dattoprint' and datetime_to <'$dattoprint2')";
+             //var_dump($sql);
              $data = mysqli_query($dbc, $sql);
              ?>
              <br>
-             <table>
+             <table class="table-bordered">
 
                <?php while($row = mysqli_fetch_array($data)) {?>
-                   <tr class="border_bottom" align="left">
+                   <tr>
                  <?php $postdate=$row['datetime_from'];
                  $dateValue = strtotime($postdate);
                  $hour = date("H", $dateValue) ."";
@@ -198,6 +199,7 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
     </div>
     </div>
 </div>
+</div>
 
 <script>
     function tdclick(x,y,z){
@@ -213,12 +215,6 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
         window.location.href = "../public/Todaydisplay?ymd="+ats;
     };
 </script>
-
-
-
-
-
-
 </body>
 </html>
 

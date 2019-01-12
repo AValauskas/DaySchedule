@@ -1,6 +1,7 @@
 @include('pages.Menu')
 <!DOCTYPE html>
 <head>
+    <link href="{{URL::asset('/css/MonthCalander.css')}}" rel="stylesheet" type="text/css" >
     <title>Schedule</title>
 </head>
 
@@ -55,43 +56,33 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
     $today++;
 }
 ?>
+<html lang="en">
 <style>
-    body,html{
-        height: 100%;
+    div.postField{
+        color: white;
+        min-height: 100px;
+        max-height:100px;
+        overflow-y: auto;
     }
-    .calander{
+    div#post{
+        background: #1d643b;
+        margin-bottom: 5px;
         width: 100%;
     }
-    td {
-        background: white;
-        vertical-align:top;
+    div#postName{
+        font-size: 100%;
+        text-align: left;
+        overflow: hidden;
+        text-transform: full-width;
+        white-space: nowrap;
     }
-    tr{
-        background: white;
-    }
-    td:hover{
-        background-color: #66ff33;
-    }
-    table{
-        width: 100%;
-        table-layout: fixed;
-        text-align: center;
-        text-transform: uppercase;
-    }
-    .row{
-        width: 100%;
-    }
-    .row#date_info{
-        background: #f7e6ad;
-        height: 75px;
-        width: 100%;
-        font-size: 400%;
-        text-align: center;
-        text-transform: uppercase;
+    div#postTime{
+        font-size: 100%;
+        text-align: right;
+        overflow: hidden;
     }
 </style>
 
-<html lang="en">
 <body>
 <div class="calander">
     <div class="row" style="margin-right: 0px;margin-left: 0px;">
@@ -100,23 +91,25 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
         </div>
 
         <div class="col-lg-9" style="padding-right: 0px;padding-left: 0px;">
-<?php
-    echo "
+
         <div class='row' id=date_info>
             <div class=col-lg-1>
-                <
+              <a href="?ym=<?= $prev; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px">&lt;</a>
             </div>
-            <div class=col-lg-10>
-                $month_name $year
+            <div class=col-lg-8>
+                <?php echo "$month_name $year" ?>
+            </div>
+            <div class=col-lg-2 style="font-size: 100%;">
+                <a href="../public/Day" style="color: black;font-size: 30px" class="btn btn-link">ADD POST</a>
             </div>
             <div class=col-lg-1>
-                >
+               <a href="?ym=<?= $next; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px"> &gt;</a>
             </div>
         </div>
-        <div class='row' style='margin-right: 0px;margin-left: 0px;height: 100%'>
-        <table class='table-responsive' frame='all' rules='all' style='height: 100%'>
-        <tr style='text-align: center'><th>mon</th><th>tue</th><th>wed</th><th>thu</th><th>fri</th><th>sat</th><th>sun</th></tr>";
-
+        <div class='row' style='margin-right: 0px;margin-left: 0px;'>
+        <table class='table-bordered' frame='all' rules='all'>
+        <tr><th id="day">mon</th><th id="day">tue</th><th id="day">wed</th><th id="day">thu</th><th id="day">fri</th><th id="day">sat</th><th id="day">sun</th></tr>
+<?php
     $day = 1; //This variable will track the day of the month
     $wday = $first_week_day; //This variable will track the day of the week (0-6, with Sunday being 0)
     $firstweek = true; //Initialize $firstweek variable so we can deal with it first
@@ -158,26 +151,36 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
              $data = mysqli_query($dbc, $sql);
              ?>
              <br>
-             <table class="table-bordered">
-
+                <div class="postField">
                <?php while($row = mysqli_fetch_array($data)) {?>
-                   <tr>
                  <?php $postdate=$row['datetime_from'];
+                 $name = $row['text'];
                  $dateValue = strtotime($postdate);
                  $hour = date("H", $dateValue) ."";
                  $min = date("i", $dateValue)."";
                  $hours = strval($hour);
                  $mins = strval($min);
                  $both=$hours.':'.$min;
-                 echo $both;
-                 ?>
+                 $id = $row['category'];
 
-             </tr>
-                   <br>
+                 if ($id == 1){
+                     $color = "#6f96d6";
+                 } else if ($id == 2){
+                     $color = "#b26e6e";
+                 }else if  ($id == 3){
+                     $color = "#789969";
+                 } else {
+                     $color = "#999169";
+                 }
+                 echo "<div class='row' style='background: $color' id='post'>
+                            <div class='col-lg-7' id='postName'>$name</div>
+                            <div class='col-lg-5' id='postTime'>$both</div>
+                       </div>"
+                 ?>
         <?php }
 
          ?>
-             </table>
+                </div>
          </td>
 
         <?php

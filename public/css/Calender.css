@@ -150,6 +150,12 @@ div.clear{
 th {
     text-align: center;
 }
+th:nth-of-type(6), td:nth-of-type(6) {
+    color: blue;
+}
+th:nth-of-type(7), td:nth-of-type(7) {
+    color: red;
+}
 .today {
     background-color: ghostwhite;
 }

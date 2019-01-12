@@ -81,6 +81,12 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
         text-align: right;
         overflow: hidden;
     }
+    td.empty{
+        background: #c6c6c6;
+    }
+    td.empty:hover{
+        background: #a5a5a5;
+    }
 </style>
 
 <body>
@@ -120,7 +126,7 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
             echo "<tr>";
             for ($i=1; $i<=$first_week_day; $i++)
             {
-                echo "<td> </td>"; //Put a blank cell for each day until you hit $first_week_day
+                echo "<td class='empty'> </td>"; //Put a blank cell for each day until you hit $first_week_day
             }
             $firstweek = false; //Great, we're done with the blank cells
         }
@@ -194,7 +200,7 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
 
     while($wday <=6 ) //Until we get through Saturday
     {
-        echo "<td> </td>"; //Output an empty cell
+        echo "<td class='empty'> </td>"; //Output an empty cell
         $wday++;
     }
     echo "</tr></table>";

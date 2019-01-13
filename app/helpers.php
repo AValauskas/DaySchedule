@@ -5,7 +5,7 @@ session_start();
 function database()
 {
     $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-    //$dbc = mysqli_connect('localhost', 'u684378970_sce', 'aurval10', '	u684378970_sce');
+    //$dbc = mysqli_connect('localhost', 'u684378970_sce', 'aurluk', 'u684378970_sce');
     if (!$dbc) {
         die ("Can't connect to MySQL:" . mysqli_error($dbc));
     }
@@ -69,7 +69,7 @@ else return true;
 }
 
 function checkdb($username) {  // iesko DB pagal varda, grazina {vardas,slaptazodis,lygis,id} ir nustato name_error
-$db=mysqli_connect('localhost', 'root', '', 'schedule');
+$db=database();
 $sql = "SELECT * FROM person WHERE username = '$username'";
 $result = mysqli_query($db, $sql);
 var_dump($result);
@@ -121,10 +121,7 @@ else return true;
 
         function Efficiencycalculate($date,$tomorrow)
         {
-            $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-            if (!$dbc) {
-                die ("Can't connect to MySQL:" . mysqli_error($dbc));
-            }
+            $dbc = database();
             $uid= $_SESSION['userid'];
             $minfail=0;
             $minsucces=0;
@@ -166,7 +163,17 @@ else return true;
             return $percent;
         }
 
-
+        function randomPassword()
+        {
+            $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+            $pass = array(); //remember to declare $pass as an array
+            $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+            for ($i = 0; $i < 8; $i++) {
+                $n = rand(0, $alphaLength);
+                $pass[] = $alphabet[$n];
+            }
+            return implode($pass); //turn the array into a string
+        }
 
 
 

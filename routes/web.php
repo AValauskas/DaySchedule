@@ -21,11 +21,16 @@ Route::get('/registration', function () {
 Route::get('/login', function () {
     return view('pages.login');
 });
+Route::get('/forgotpass', function () {
+    return view('pages.forgotpass');
+});
+
 
 Route::post('/store', 'UserController@store');
 Route::post('/log', 'UserController@log');
 Route::get('/logout', 'UserController@logout');
 Route::get('/sendmail', 'UserController@sendmail');
+Route::get('/changepass', 'UserController@changepass');
 Route::get('/addaction', 'PostsController@addaction');
 Route::get('/editaction', 'PostsController@editaction');
 Route::get('/deletepost', 'PostsController@deletepost');

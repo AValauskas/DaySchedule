@@ -43,7 +43,7 @@ class UserController extends Controller
                     if (mysqli_query($dbc, $sql))
                     {$_SESSION['message']="Registracija sėkminga";
                         inisession();
-                        return redirect('/login');
+                        return redirect('/welcome');
                     }
                     else {$_SESSION['message']="DB registracijos klaida:" . $sql . "<br>" . mysqli_error($dbc);}
 
@@ -97,7 +97,7 @@ class UserController extends Controller
                 }
             }
         }
-        return redirect('/login');
+        return redirect('/welcome');
     }
 
 
@@ -170,8 +170,6 @@ class UserController extends Controller
     public function Sendmail(request $request)
     {
         $date=$request->input('dat');
-phpinfo();
-die;
         $to = "aurimas19970704@gmail.com";
         $subject = "My subject";
         $txt = "Hello world!";
@@ -182,18 +180,43 @@ $succ=mail($to,$subject,$txt);
             var_dump("labas");
             die;
         }
-        else{
-            $errorMessage = error_get_last()['message'];
-            var_dump($errorMessage);
-            die;
-        }
-
-
 
 
         return redirect("/Todaydisplay?ymd=" . "$date");
     }
+    public function changepass(request $request)
+    {
+        $mail=$request->input('mail');
+        $dbc = database();
+        $sql = "select * from person where email='$mail'";
+        $data=mysqli_query($dbc, $sql);
+        $row = mysqli_fetch_assoc($data);
+        if ( isset($row['email'])  )
+        {
+            $to = $row['email'];
+            $subject = $row['name'];
+            $newpass=randomPassword();
+            $txt=$subject." new password: ".$newpass;
+            $succ=mail($to,$subject,$txt);
+            if($succ)
+            {
+                var_dump("labas");
 
+            }
+            else{var_dump("ne");}
+
+            $passdb=substr(hash('sha256', $newpass),5,32);
+            $sql2="update person set password='$passdb' where email='$mail'";
+            mysqli_query($dbc, $sql2);
+
+        }
+        else{$_SESSION["mailerror"]="Email don't exist";
+            return redirect('/forgotpass');
+        }
+
+
+        return redirect('/welcome');
+    }
 
 
 }

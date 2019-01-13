@@ -2,7 +2,6 @@
 inisession();
 ?>
 <!doctype html>
-labas
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -65,7 +64,7 @@ labas
                 </div>
             <div class="row">
                 <a href=../public/registration><input type=button class="btn btn-lg" value='REGISTER'></a>
-                <a href=../public/registration><input type=button class="btn btn-lg" id="small" value='FORGOT PASSWORD'></a>
+                <a href=../public/forgotpass><input type=button class="btn btn-lg" id="small" value='FORGOT PASSWORD'></a>
             </div>
             <br>
             <br>

@@ -5,7 +5,7 @@ session_start();
 function database()
 {
     $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-    //$dbc = mysqli_connect('localhost', 'u684378970_sce', 'aurluk', 'u684378970_sce');
+  //  $dbc = mysqli_connect('localhost', 'u684378970_sce', 'aurluk', 'u684378970_sce');
     if (!$dbc) {
         die ("Can't connect to MySQL:" . mysqli_error($dbc));
     }
@@ -26,9 +26,13 @@ function inisession() {   //valom sesijos kintamuosius
     $_SESSION['mail_login']="";
     $_SESSION['name']="";
     $_SESSION['phone']="";
-    $_SESSION['name_error']="";
-    $_SESSION['pass_error']="";
-    $_SESSION['mail_error']="";
+    if (!isset($_SESSION['name_error']))
+    {$_SESSION['name_error']="";}
+    if (!isset( $_SESSION['pass_error']))
+    { $_SESSION['pass_error']="";}
+    if (!isset(  $_SESSION['mail_error']))
+    {  $_SESSION['mail_error']="";}
+
 }
 
 function checkname ($username){
@@ -51,10 +55,7 @@ if (!$pwd || strlen($pwd = trim($pwd)) == 0)
 {$_SESSION['pass_error']=
 "<font size=\"2\" color=\"#ff0000\">* Password has not been entered</font>";
 return false;}
-elseif (!preg_match("/^([0-9a-zA-Z])*$/", $pwd))  /* Check if $pass is not alphanumeric */
-{$_SESSION['pass_error']="* Password can only consist of<br>&nbsp;&nbsp;letters and numbers";
-return false;}
-elseif (strlen($pwd)<4)  // per trumpas
+elseif (strlen($pwd)<5)  // per trumpas
 {$_SESSION['pass_error']=
 "<font size=\"2\" color=\"#ff0000\">* Password length must be >= 4</font>";
 return false;}

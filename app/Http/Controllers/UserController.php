@@ -30,7 +30,7 @@ class UserController extends Controller
 
             if ($dbuname)  {  // jau yra toks vartotojas DB
                 $_SESSION['name_error']=
-                    "<font size=\"2\" color=\"#ff0000\">* Tokiu vardu jau yra registruotas vartotojas</font>";
+                    "<font size=\"2\" color=\"#ff0000\">* This login are already taken</font>";
             } else {  // gerai, vardas naujas
                 $_SESSION['name_error'] = "";
                 if (checkpass($password,substr(hash('sha256',$password),5,32))  && checkmail($mail)) // antra tikrinimo dalis checkpass bus true

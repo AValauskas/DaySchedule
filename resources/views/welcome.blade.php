@@ -20,6 +20,7 @@ inisession();
                 background-size: cover;
             }
             p.error{
+                font-size: 15px;
                 text-transform: uppercase;
                 color: green;
             }

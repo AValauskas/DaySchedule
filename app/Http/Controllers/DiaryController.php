@@ -54,7 +54,6 @@ class DiaryController extends Controller
         $dbc = database();
         $sql = "DELETE diary from diary where id_Diary='$diaryid'";
         if(mysqli_query($dbc, $sql)) {
-            $_SESSION['diaryremoved']="Diary was succesfully deleted";
             return redirect('/DiaryDisplay');
 
         }

@@ -46,6 +46,14 @@
         color: #1b1e21;
         background-color: gray;
     }
+    div.diary{
+        margin-right: 5%;
+        margin-left: 5%;
+        margin-bottom: 2%;
+    }
+    div#dayDiary{
+        background: #f7e6ad;
+    }
 </style>
 <html>
 
@@ -84,8 +92,16 @@ $range = hoursRange();
             <div class=col-lg-1 >
                 <a href="?ymd=<?= $prev; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px">&lt;</a>
             </div>
-            <div class=col-lg-8>
+            <div class=col-lg-6>
                 <?php echo "$date" ?>
+            </div>
+            <div class=col-lg-2 style="font-size: 85%;">
+            <?php
+            if( $date==$today ){
+            ?>
+                <a href="../public/Diary" class="btn btn-lg">Write diary</a>
+                <?php }
+                ?>
             </div>
             <div class=col-lg-2 style="font-size: 85%;">
                 <?php echo" <a href=../public/Day?dt=",urlencode($date),"><input type=button class='btn btn-lg' id='$date' value='ADD POST' ></a> " ?>
@@ -185,11 +201,11 @@ $range = hoursRange();
             if(($hour>=20 && $date<=$today )|| $date<$today)
             {
             ?>
-            <div class="col-lg-6">
-                <div class="col-md-6 col-md-offset-3">
+            <div class="col-lg-6" style="text-align: center;font-size: 30px">
                     <form class="" action="{{URL::to('/evaluate')}}" method="get">
                         @csrf
-                        <h3>Your day evaluation!</h3><br>
+                        DAY EVALUATION
+                        <p>
                         <select  name="evaluation" required>
                             <option value="no"  disabled selected><?php echo"$value";?></option>
                             <option value="1">1</option>
@@ -207,29 +223,24 @@ $range = hoursRange();
 
                         <input type="hidden" name="dat" value="{{$date}}">
                         <input type="hidden" name="_token" value="{{csrf_token()}}">
-                        <button type=submit name="button">Patvirtinti</button>
+                        <button type=submit class='btn btn-lg' name="button">RATE</button>
+                        </p>
                     </form>
-                </div>
             </div>
-
             <?php
             }
-
-
-            if( $date==$today ){
-            ?>
-            <li class="list-inline-item"><a href="../public/Diary" class="btn btn-link">Write Diary&gt;</a></li>
-            <?php }
             ?>
 
-        <center><h2>Day Completed</h2></center>
-        <?php
-            $percent=Efficiencycalculate($date,$tomorrow);
-            ?>
-
-<center><p style="font-size:40px;"><?php echo $percent;?>%</p></center>
-    </div>
-            <div class="row" style="background: black">
+        <div class="col-lg-6" style="text-align: center;font-size: 30px">
+            DAY COMPLETION
+             <?php
+               $percent=Efficiencycalculate($date,$tomorrow);
+              ?>
+                <p style="font-size:40px;"><?php echo $percent;?>%</p>
+            </div>
+            </div>
+        </div>
+            <div class="row" id="dayDiary">
                 <?php
                 $sql2="select * from diary where date='$date' and 	fk_Personid_Person='$uid'";
                 $data3 = mysqli_query($dbc, $sql2);
@@ -238,8 +249,8 @@ $range = hoursRange();
                 {
                 ?>
 
-                <div class="col-lg-6">
-                    <div class="col-md-6 col-md-offset-3" >
+                <div class="diary">
+                    <div>
                         <h2> <?php echo"$date "?> day diary</h2>
                         <?php
 

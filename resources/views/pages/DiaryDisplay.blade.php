@@ -22,7 +22,8 @@
         }
         div.journal{
             background: white;
-            height: 100%;
+            max-height: 80vh;
+            overflow: auto;
         }
         .btn{
             text-transform: uppercase;
@@ -33,7 +34,7 @@
             color: #1b1e21;
             background-color: gray;
         }
-        td.diaryPost{
+        td.diaryPost {
             min-width: 100px;
             overflow: auto;
         }

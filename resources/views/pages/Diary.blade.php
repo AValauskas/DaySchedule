@@ -2,10 +2,7 @@
         <!DOCTYPE html>
 
 <?php
-$dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-if (!$dbc) {
-    die ("Can't connect to MySQL:" . mysqli_error($dbc));
-}
+$dbc = database();
 $data = date("Y-m-d");
 $uid= $_SESSION['userid'];
  $sql="select * from diary where date='$data' and fk_Personid_Person='$uid' ";

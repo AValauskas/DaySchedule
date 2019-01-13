@@ -106,7 +106,6 @@ $data = mysqli_query($dbc, $sql);
     <tr>
         <td class="diaryPost"><?php echo $row['date'];   $idd =$row['id_Diary'];?></td>
         <td class="diaryPost"><?php echo $row['text'];?></td>
-        <td class="diaryPost"><?php echo" <a href=../public/Diary?postid=",urlencode($idd),"><input type=button class='btn btn-lg' id='$idd' value='Edit' ></a> " ?></td>
         <td class="diaryPost">  <?php echo" <a href=../public/deletediaryJournal?id=",urlencode($idd),"><input type=button class='btn btn-lg' id='$idd' value='Delete' ></a> " ?></td>
     </tr>
 

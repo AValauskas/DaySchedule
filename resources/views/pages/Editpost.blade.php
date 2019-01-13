@@ -10,10 +10,7 @@
 
 <?php
 
-$dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-if (!$dbc) {
-    die ("Can't connect to MySQL:" . mysqli_error($dbc));
-}
+$dbc = database();
 
 $id = $_GET['postid'];
 $sql ="select * from post where id_Post='$id'";
@@ -115,6 +112,18 @@ var_dump($today);
     <input type="hidden" name="_token" value="{{csrf_token()}}">
 </form>
 <?php  } ?>
+
+
+<form class="" action="{{URL::to('/sendmail')}}" method="get">
+    @csrf
+
+    <input type="hidden" name="fk" value="{{$id}}">
+    <input type="hidden" name="dat" value="{{ $datefromtoprint->format('Y-m-d')}}">
+    <input type="hidden" name="_token" value="{{csrf_token()}}">
+    <button type=submit name="button">Send mail</button>
+</form>
+
+
 </body>
 
 

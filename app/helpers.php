@@ -1,6 +1,18 @@
 <?php
 session_start();
 
+
+function database()
+{
+    $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
+    //$dbc = mysqli_connect('localhost', 'u684378970_sce', 'aurval10', '	u684378970_sce');
+    if (!$dbc) {
+        die ("Can't connect to MySQL:" . mysqli_error($dbc));
+    }
+    return $dbc;
+}
+
+
 function inisession() {   //valom sesijos kintamuosius
 
         $_SESSION['message']="";

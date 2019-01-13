@@ -1,12 +1,21 @@
-@include('pages.Menu')
+
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <link href="{{URL::asset('/css/MonthCalander.css')}}" rel="stylesheet" type="text/css" >
     <title>Schedule</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="{{URL::asset('/css/MonthCalander.css')}}" rel="stylesheet" type="text/css" >
 </head>
+@include('pages.Menu')
+
 
 <?php
-
+$uid= $_SESSION['userid'];
 if (isset($_GET['ym'])) {
     $ym = $_GET['ym'];
     $d = date_parse_from_format("Y-m", $ym);
@@ -56,7 +65,7 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
     $today++;
 }
 ?>
-<html lang="en">
+
 <style>
     div.postField{
         color: white;
@@ -148,11 +157,8 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
 
         if($day==$day_num) echo " bgcolor='yellow'"; //highlight TODAY in yellow?>
          >  <?php echo"$day";
-             $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-             if (!$dbc) {
-                 die ("Can't connect to MySQL:" . mysqli_error($dbc));
-             }
-             $sql="select * from post where (datetime_from > '$dattoprint' and datetime_from < '$dattoprint2' ) or (datetime_to >'$dattoprint' and datetime_to <'$dattoprint2')";
+             $dbc = database();
+             $sql="select * from post where ((datetime_from > '$dattoprint' and datetime_from < '$dattoprint2' ) or (datetime_to >'$dattoprint' and datetime_to <'$dattoprint2')) and fk_Personid_Person='$uid'";
              //var_dump($sql);
              $data = mysqli_query($dbc, $sql);
              ?>

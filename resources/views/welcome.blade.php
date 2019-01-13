@@ -2,6 +2,7 @@
 inisession();
 ?>
 <!doctype html>
+labas
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -22,6 +23,7 @@ inisession();
         </style>
     </head>
     <body>
+
     <div>
         <img src="{{URL::asset('/images/GoSchedule.png')}}">
     </div>

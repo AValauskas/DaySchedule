@@ -15,10 +15,7 @@ class EvaluateController extends Controller
         $uid= $_SESSION['userid'];
         $estimate=intval($rate);
 
-        $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-        if (!$dbc) {
-            die ("Can't connect to MySQL:" . mysqli_error($dbc));
-        }
+        $dbc = database();
         $sql="select * from rate where date='$date'";
         $data = mysqli_query($dbc, $sql);
         $row = mysqli_fetch_assoc($data);

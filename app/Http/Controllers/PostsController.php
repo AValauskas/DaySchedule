@@ -42,10 +42,7 @@ class PostsController extends Controller
             return redirect('/Day');
         }
         else {
-            $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-            if (!$dbc) {
-                die ("Can't connect to MySQL:" . mysqli_error($dbc));
-            }
+            $dbc = database();
 
 
             // $sqlfindt ="select * from post where (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to')";
@@ -111,10 +108,7 @@ class PostsController extends Controller
             return redirect('/Day');
         }
         else {
-            $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-            if (!$dbc) {
-                die ("Can't connect to MySQL:" . mysqli_error($dbc));
-            }
+            $dbc = database();
 
 
             // $sqlfindt ="select * from post where (datetime_from >='$date_from' and datetime_from < '$date_to' and datetime_to >= '$date_to')";
@@ -155,10 +149,7 @@ class PostsController extends Controller
     {
         $date=$request->input('dat');
         $postid=$request->input('fk');
-        $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-        if (!$dbc) {
-            die ("Can't connect to MySQL:" . mysqli_error($dbc));
-        }
+        $dbc = database();
 
         $sql = "DELETE post from post where id_Post='$postid'";
         mysqli_query($dbc, $sql);
@@ -170,10 +161,7 @@ class PostsController extends Controller
         $poststat=$request->input('poststat');
         $postid=$request->input('fk');
         $date=$request->input('dat');
-        $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-        if (!$dbc) {
-            die ("Can't connect to MySQL:" . mysqli_error($dbc));
-        }
+        $dbc = database();
         $sql="update post set status='$poststat' where id_Post='$postid'";
         if(mysqli_query($dbc, $sql)) {
 

@@ -7,10 +7,7 @@
 
 
 <?php
-$dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-if (!$dbc) {
-    die ("Can't connect to MySQL:" . mysqli_error($dbc));
-}
+$dbc = database();
 
 $today= date("Y-m-d");
 $tomorrow=date('Y-m-d', strtotime($today. ' + 1 days'));

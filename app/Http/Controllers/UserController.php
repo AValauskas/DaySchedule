@@ -22,11 +22,7 @@ class UserController extends Controller
         $_SESSION['mail_login']=$mail;
         $_SESSION['name']=$name;
 
-        $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-        if (!$dbc) {
-            die ("Negaliu prisijungti prie MySQL:" . mysqli_error($dbc));
-        }
-
+        $dbc = database();
 
         if (checkname($username))
         {
@@ -83,8 +79,7 @@ class UserController extends Controller
                 if (checkpass($password,$dbpass)) {
                     $time=NOW();
 
-                    $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-
+                    $dbc = database();
                     $sql = "UPDATE person SET timestamp='$time' WHERE  username='$username'";
                     if (!mysqli_query($dbc, $sql)) {
                         echo " DB klaida įrašant timestamp: " . $sql . "<br>" . mysqli_error($dbc);
@@ -132,10 +127,7 @@ class UserController extends Controller
         $pass2 = $request->input('password2');
         $mail = $request->input('mail');
         $uid= $_SESSION['userid'];
-        $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-        if (!$dbc) {
-            die ("Can't connect to MySQL:" . mysqli_error($dbc));
-        }
+        $dbc = database();
         if ( $pass=='')
         {
             if (  checkmail($mail)  )
@@ -173,6 +165,33 @@ class UserController extends Controller
             $_SESSION["error"]="Passwords isnt's  similiar";
             return redirect('/editcustomerinfo');
         }
+    }
+
+    public function Sendmail(request $request)
+    {
+        $date=$request->input('dat');
+phpinfo();
+die;
+        $to = "aurimas19970704@gmail.com";
+        $subject = "My subject";
+        $txt = "Hello world!";
+
+$succ=mail($to,$subject,$txt);
+        if($succ)
+        {
+            var_dump("labas");
+            die;
+        }
+        else{
+            $errorMessage = error_get_last()['message'];
+            var_dump($errorMessage);
+            die;
+        }
+
+
+
+
+        return redirect("/Todaydisplay?ymd=" . "$date");
     }
 
 

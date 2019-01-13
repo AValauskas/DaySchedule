@@ -45,13 +45,15 @@ $today= date("Y-m-d");
 $tomorrow=date('Y-m-d', strtotime($date. ' + 1 days'));
 $prev=date('Y-m-d', strtotime($date. ' - 1 days'));
 //$newformat = date('Y-m-d',$time);
-$sqlfind ="select * from post where datetime_from > '$date' and datetime_from < '$tomorrow' order by datetime_from";
+$sqlfind ="select * from post where datetime_from > '$date' and datetime_from < '$tomorrow'or (datetime_to > '$date' and datetime_to < '$tomorrow' ) order by datetime_from";
 $data = mysqli_query($dbc, $sqlfind);
 $allfrom=0;
 $allto=0;
 $height=0;
 $left=202;
 $count=0;
+$getday = strtotime($date);
+$day = date('d', $getday);
 ?>
 
 <?php
@@ -200,17 +202,32 @@ $range = hoursRange();
                 $color="green";
             }
             else{$color="red";}
+    var_dump($date);
+    var_dump($dfrom);
     $date = strtotime($dfrom);
     $date2 = strtotime($dto);
     $hoursfrom = date('H', $date);
     $hoursfrom2 = date('h', $date);
     $minfrom = date('i', $date);
-    $allfrom =($hoursfrom*60+$minfrom)/2;
-   // $allfrom=$allfromtocount-$allfrom;
 
+   // $allfrom=$allfromtocount-$allfrom;
+    $dayfrom = date('d', $date);
+    $dayto = date('d', $date2);
     $hoursto=date('H', $date2);
     $hoursto2=date('h', $date2);
-    $minto=date('i', $date2);
+
+    if (  $hoursto<$hoursfrom && $day==$dayfrom )
+        {
+            var_dump("labas");
+            $hoursto=24;
+            $minto=0;
+        }
+        elseif($hoursto<$hoursfrom && $day==$dayto ){
+            $hoursfrom=0;
+            $minfrom=0;
+            $minto=date('i', $date2);
+        }
+    $allfrom =($hoursfrom*60+$minfrom)/2;
     $allto= ($hoursto*60+$minto)/2;
    // $allto=$alltotocount-$allto;
 

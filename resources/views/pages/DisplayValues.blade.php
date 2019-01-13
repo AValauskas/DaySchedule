@@ -95,7 +95,6 @@ else
     <style>
         body{
             font-family: "Century Gothic";
-            text-transform: uppercase;
         }
         form.date{
             margin-top: 10px;
@@ -197,7 +196,7 @@ else
             ]);
 
             var options = {
-                title: 'mostly engaged in activities',
+                title: 'Mostly engaged in activities',
                 pieHole: 0.4,
             };
 
@@ -267,7 +266,7 @@ else
         </div>
         <div class="col-lg-9" style="padding-right: 0px;padding-left: 0px;">
             <div class='row' id=date_info>
-                <form class="date" action="{{URL::to("/DiaryDisplay")}}" method="get">
+                <form class="date" action="{{URL::to("/DisplayValues")}}" method="get">
                     <div class="col-lg-5" style="font-size: 85%">
                         FROM
                         <input type="date" name="from" value="<?php echo $from; ?>"/>

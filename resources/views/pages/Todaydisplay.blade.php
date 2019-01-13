@@ -43,16 +43,13 @@
 <body>
 <?php
 $date=$_GET['ymd'];
-$dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-if (!$dbc) {
-    die ("Can't connect to MySQL:" . mysqli_error($dbc));
-}
-
+$dbc = database();
+$uid= $_SESSION['userid'];
 $today= date("Y-m-d");
 $tomorrow=date('Y-m-d', strtotime($date. ' + 1 days'));
 $prev=date('Y-m-d', strtotime($date. ' - 1 days'));
 //$newformat = date('Y-m-d',$time);
-$sqlfind ="select * from post where datetime_from > '$date' and datetime_from < '$tomorrow'or (datetime_to > '$date' and datetime_to < '$tomorrow' ) order by datetime_from";
+$sqlfind ="select * from post where (datetime_from > '$date' and datetime_from < '$tomorrow'or (datetime_to > '$date' and datetime_to < '$tomorrow' ) ) and fk_Personid_Person='$uid' order by datetime_from";
 $data = mysqli_query($dbc, $sqlfind);
 $allfrom=0;
 $allto=0;
@@ -114,14 +111,14 @@ $range = hoursRange();
                  } else {
                      $color = "#999169";
                  }
-                $date = strtotime($dfrom);
+                $date3 = strtotime($dfrom);
                 $date2 = strtotime($dto);
-                $hoursfrom = date('H', $date);
-                $hoursfrom2 = date('h', $date);
-                $minfrom = date('i', $date);
+                $hoursfrom = date('H', $date3);
+                $hoursfrom2 = date('h', $date3);
+                $minfrom = date('i', $date3);
 
                 // $allfrom=$allfromtocount-$allfrom;
-                $dayfrom = date('d', $date);
+                $dayfrom = date('d', $date3);
                 $dayto = date('d', $date2);
                 $hoursto=date('H', $date2);
                 $hoursto2=date('h', $date2);
@@ -172,7 +169,7 @@ $range = hoursRange();
             date_default_timezone_set('UTC');
             //$date = date('Y-m-d H:i:s');
             $hour=date("H");
-            $sql="select * from rate where date='$date'";
+            $sql="select * from rate where date='$date' and fk_Personid_Person='$uid'";
             $data2 = mysqli_query($dbc, $sql);
             $row = mysqli_fetch_array($data2);
             $value =$row['value'];
@@ -225,7 +222,7 @@ $range = hoursRange();
 
 
             <?php
-            $sql2="select * from diary where date='$date'";
+            $sql2="select * from diary where date='$date' and 	fk_Personid_Person='$uid'";
             $data3 = mysqli_query($dbc, $sql2);
             $row = mysqli_fetch_array($data3);
             if(isset($row))

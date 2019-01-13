@@ -66,7 +66,7 @@ $today= date("Y-m-d");
 $tomorrow=date('Y-m-d', strtotime($date. ' + 1 days'));
 $prev=date('Y-m-d', strtotime($date. ' - 1 days'));
 //$newformat = date('Y-m-d',$time);
-$sqlfind ="select * from post where (datetime_from > '$date' and datetime_from < '$tomorrow'or (datetime_to > '$date' and datetime_to < '$tomorrow' ) ) and fk_Personid_Person='$uid' order by datetime_from";
+$sqlfind ="select * from post where (datetime_from > '$date' and datetime_from < '$tomorrow'or (datetime_to > '$date' and datetime_to < '$tomorrow' ) or (datetime_from<'$date' and datetime_to>'$date') ) and fk_Personid_Person='$uid' order by datetime_from";
 $data = mysqli_query($dbc, $sqlfind);
 $allfrom=0;
 $allto=0;
@@ -156,7 +156,12 @@ $range = hoursRange();
                 elseif($hoursto<$hoursfrom && $day==$dayto ){
                     $hoursfrom=0;
                     $minfrom=0;
-
+                }elseif($dayfrom<$day && $dayto>$day)
+                {
+                    $hoursfrom=0;
+                    $minfrom=0;
+                    $hoursto=24;
+                    $minto=0;
                 }
                 $allfrom =($hoursfrom*60+$minfrom)/2;
                 $allto= ($hoursto*60+$minto)/2;
@@ -230,7 +235,7 @@ $range = hoursRange();
             <?php
             }
             ?>
-
+<?php    if ($date<=$today) {?>
         <div class="col-lg-6" style="text-align: center;font-size: 30px">
             DAY COMPLETION
              <?php
@@ -240,6 +245,7 @@ $range = hoursRange();
             </div>
             </div>
         </div>
+        <?php } ?>
             <div class="row" id="dayDiary">
                 <?php
                 $sql2="select * from diary where date='$date' and 	fk_Personid_Person='$uid'";

@@ -54,6 +54,10 @@
     div#dayDiary{
         background: #f7e6ad;
     }
+    p.diaryTitle{
+        font-size: 30px;
+        text-transform: uppercase;
+    }
 </style>
 <html>
 
@@ -205,6 +209,7 @@ $range = hoursRange();
             $value =$row['value'];
             if(($hour>=20 && $date<=$today )|| $date<$today)
             {
+                $middle = "col-lg-6";
             ?>
             <div class="col-lg-6" style="text-align: center;font-size: 30px">
                     <form class="" action="{{URL::to('/evaluate')}}" method="get">
@@ -233,10 +238,12 @@ $range = hoursRange();
                     </form>
             </div>
             <?php
+            } else {
+                $middle = "col-lg-12";
             }
             ?>
 <?php    if ($date<=$today) {?>
-        <div class="col-lg-6" style="text-align: center;font-size: 30px">
+        <div class="<?php $middle ?>" style="text-align: center;font-size: 30px">
             DAY COMPLETION
              <?php
                $percent=Efficiencycalculate($date,$tomorrow);
@@ -257,11 +264,11 @@ $range = hoursRange();
 
                 <div class="diary">
                     <div>
-                        <h2> <?php echo"$date "?> day diary</h2>
+                        <p class="diaryTitle">DAY DIARY</p>
                         <?php
-
+                            echo"<p>";
                         $toprint =$row['text'];
-                        echo " $toprint";?>
+                        echo " $toprint </p>";?>
                     </div>
                 </div>
                 <?php

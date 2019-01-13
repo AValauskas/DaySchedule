@@ -92,7 +92,34 @@ else
 <html>
 
 <head>
-
+    <style>
+        body{
+            font-family: "Century Gothic";
+            text-transform: uppercase;
+        }
+        form.date{
+            margin-top: 10px;
+        }
+        .row#date_info{
+            background: #f7e6ad;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+            height: 75px;
+            width: 100%;
+            font-size: 200%;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .btn{
+            text-transform: uppercase;
+            color: white;
+            background-color: #353535;
+        }
+        .btn:hover{
+            color: #1b1e21;
+            background-color: gray;
+        }
+    </style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
@@ -205,7 +232,7 @@ else
                 2]);
 
             var options = {
-                title: "mins spend on activities",
+                title: "Minutes spent of activities",
                 width: 600,
                 height: 400,
                 bar: {groupWidth: "95%"},
@@ -233,13 +260,33 @@ else
     </script>
 </head>
 <body>
-<div class="col-md-6 col-md-offset-3">
+<div>
+    <div class="row" style="margin-right: 0px;margin-left: 0px;">
+        <div class="col-lg-3" style="padding-right: 0px;padding-left: 0px;">
+            @include('pages.SideMenu')
+        </div>
+        <div class="col-lg-9" style="padding-right: 0px;padding-left: 0px;">
+            <div class='row' id=date_info>
+                <form class="date" action="{{URL::to("/DiaryDisplay")}}" method="get">
+                    <div class="col-lg-5" style="font-size: 85%">
+                        FROM
+                        <input type="date" name="from" value="<?php echo $from; ?>"/>
+                    </div>
+
+                    <div class="col-lg-5" style="font-size: 85%">
+                        TO
+                        <input type="date" name="to"  value="<?php echo $to; ?>" />
+                    </div>
+
+                    <div class="col-lg-2">
+                        <input class="btn btn-lg" name = "submit" type="submit" value="SHOW">
+                    </div>
+                </form>
+            </div>
+<div>
     <form class="" action="{{URL::to("/DisplayValues")}}" method="get">
-        <input type="date" name="from" value="<?php echo $from; ?>"/><input type="date" name="to"  value="<?php echo $to; ?>" /><input name = "submit" type="submit" value="Rodyti">
     </form>
 </div>
-<br><br>
-
 
 <?php
 if(isset($message))
@@ -248,10 +295,24 @@ if(isset($message))
     }
     else
         {?>
-<div id="piechart" style="width: 900px; height: 500px;"></div>
-<div id="chart_div" style="width: 100%; height: 500px;"></div>
-<div id="donutchart" style="width: 900px; height: 500px;"></div>
-<div id="columnchart_values" style="width: 900px; height: 300px;"></div>
+            <div class="row"  style="background: white;margin-right: 0px;margin-left: 0px;">
+                <div class="col-lg-6" style="padding-right: 0px;padding-left: 0px;">
+                    <div id="piechart" style="width: 100%; height: 350px;"></div>
+                </div>
+                <div class="col-lg-6" style="padding-right: 0px;padding-left: 0px;">
+                    <div id="donutchart" style="width: 100%; height: 350px;"></div>
+                </div>
+            </div>
+            <div class="row" style="background: white;margin-right: 0px;margin-left: 0px;">
+                <div class="col-lg-12"  style="padding-right: 0px;padding-left: 0px;">
+                    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+                </div>
+            </div>
+            <div class="row" style="background: white;margin-right: 0px;margin-left: 0px;">
+                <div class="col-lg-12"  style="padding-right: 0px;padding-left: 0px;">
+                    <div id="columnchart_values" style="margin:auto;width: 50%; height: 100%;"></div>
+                </div>
+            </div>
    <?php     }
 
 ?>

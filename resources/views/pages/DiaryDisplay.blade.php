@@ -72,12 +72,12 @@ $data = mysqli_query($dbc, $sql);
         <div class="col-lg-9" style="padding-right: 0px;padding-left: 0px;">
             <div class='row' id=date_info>
                 <form class="date" action="{{URL::to("/DiaryDisplay")}}" method="get">
-                    <div class="col-lg-5">
+                    <div class="col-lg-5" style="font-size: 85%">
                         FROM
                         <input type="date" name="from" value="<?php echo $from; ?>"/>
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-lg-5" style="font-size: 85%">
                         TO
                         <input type="date" name="to"  value="<?php echo $to; ?>" />
                     </div>

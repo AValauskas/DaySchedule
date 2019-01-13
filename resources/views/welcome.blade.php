@@ -53,11 +53,12 @@ inisession();
                     @csrf
                     <div class=form-group">
                         <input type="text" name="login" placeholder="Username" class="form-control" value="<?php echo $_SESSION['name_login'] ?>" required><br>
-                        <?php echo $_SESSION['name_error']; ?>
+                        <?php echo $_SESSION['name_error'];
+                        $_SESSION['name_error']="";?>
                     </div>
                     <div class=form-group">
                         <input type="password" name="password" placeholder="Password" class="form-control" value="" required><br>
-                        <?php echo $_SESSION['pass_error']; ?>
+                        <?php echo $_SESSION['pass_error'];$_SESSION['pass_error']=""; ?>
                     </div>
                     <div class=form-group">
                           <input type="hidden" name="_token" value="{{csrf_token()}}">

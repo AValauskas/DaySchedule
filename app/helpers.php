@@ -5,7 +5,7 @@ session_start();
 function database()
 {
     $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-  //  $dbc = mysqli_connect('localhost', 'u684378970_sce', 'aurluk', 'u684378970_sce');
+    //$dbc = mysqli_connect('localhost', 'u684378970_sce', 'aurluk', 'u684378970_sce');
     if (!$dbc) {
         die ("Can't connect to MySQL:" . mysqli_error($dbc));
     }
@@ -57,7 +57,7 @@ if (!$pwd || strlen($pwd = trim($pwd)) == 0)
 return false;}
 elseif (strlen($pwd)<5)  // per trumpas
 {$_SESSION['pass_error']=
-"<font size=\"2\" color=\"#ff0000\">* Password length must be >= 4</font>";
+"<font size=\"2\" color=\"#ff0000\">* Password length must be >= 5</font>";
 return false;}
 elseif ($dbpwd != substr(hash( 'sha256', $pwd ),5,32))
 //elseif ($dbpwd != $pwd)

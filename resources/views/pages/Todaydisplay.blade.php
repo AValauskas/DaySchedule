@@ -63,6 +63,7 @@
 
 <body>
 <?php
+date_default_timezone_set('Europe/Vilnius');
 $date=$_GET['ymd'];
 $dbc = database();
 $uid= $_SESSION['userid'];
@@ -78,7 +79,9 @@ $height=0;
 $left=202;
 $count=0;
 $getday = strtotime($date);
+$month_name=date("F", strtotime($date));
 $day = date('d', $getday);
+$Year = date('Y', $getday);
 ?>
 
 <?php
@@ -97,7 +100,7 @@ $range = hoursRange();
                 <a href="?ymd=<?= $prev; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px">&lt;</a>
             </div>
             <div class=col-lg-6>
-                <?php echo "$date" ?>
+                <?php echo "$Year $month_name $day"; ?>
             </div>
             <div class=col-lg-2 style="font-size: 85%;">
             <?php
@@ -155,17 +158,17 @@ $range = hoursRange();
                 if (  $hoursto<$hoursfrom && $day==$dayfrom )
                 {
                     $hoursto=24;
-                    $minto=0;
+                    $minto="00";
                 }
                 elseif($hoursto<$hoursfrom && $day==$dayto ){
-                    $hoursfrom=0;
-                    $minfrom=0;
+                    $hoursfrom="00";
+                    $minfrom="00";
                 }elseif($dayfrom<$day && $dayto>$day)
                 {
-                    $hoursfrom=0;
-                    $minfrom=0;
+                    $hoursfrom="00";
+                    $minfrom="00";
                     $hoursto=24;
-                    $minto=0;
+                    $minto="00";
                 }
                 $allfrom =($hoursfrom*60+$minfrom)/2;
                 $allto= ($hoursto*60+$minto)/2;
@@ -199,9 +202,6 @@ $range = hoursRange();
         }
         ?>
             <?php
-
-            date_default_timezone_set('UTC');
-            //$date = date('Y-m-d H:i:s');
             $hour=date("H");
             $sql="select * from rate where date='$date' and fk_Personid_Person='$uid'";
             $data2 = mysqli_query($dbc, $sql);

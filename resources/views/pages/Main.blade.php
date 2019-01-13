@@ -3,9 +3,6 @@
 <html lang="en">
 <head>
     <title>Schedule</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -15,6 +12,8 @@
 
 
 <?php
+
+date_default_timezone_set('Europe/Vilnius');
 $uid= $_SESSION['userid'];
 if (isset($_GET['ym'])) {
     $ym = $_GET['ym'];
@@ -25,6 +24,8 @@ if (isset($_GET['ym'])) {
     $prev = date('Y-m', strtotime('-1 month', $timestamp));
     $next = date('Y-m', strtotime('+1 month', $timestamp));
     //$transdate = date2('m-d-Y', time());
+    $h=$month = date("H");
+    var_dump($h);
     $month = date("m");
     if (  $month==$month_num  )
         {
@@ -167,7 +168,7 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
         if($day==$day_num) echo " bgcolor='yellow'"; //highlight TODAY in yellow?>
          >  <?php echo"$day";
              $dbc = database();
-             $sql="select * from post where ((datetime_from > '$dattoprint' and datetime_from < '$dattoprint2' ) or (datetime_to >'$dattoprint' and datetime_to <'$dattoprint2')) and fk_Personid_Person='$uid'";
+             $sql="select * from post where ((datetime_from > '$dattoprint' and datetime_from < '$dattoprint2' ) or (datetime_to >'$dattoprint' and datetime_to <'$dattoprint2')or(datetime_from<'$dattoprint' and datetime_from<'$dattoprint2'and  datetime_to>'$dattoprint' and datetime_to>'$dattoprint2' )) and fk_Personid_Person='$uid'";
              //var_dump($sql);
              $data = mysqli_query($dbc, $sql);
              ?>

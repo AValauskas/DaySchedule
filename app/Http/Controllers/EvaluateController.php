@@ -16,7 +16,7 @@ class EvaluateController extends Controller
         $estimate=intval($rate);
 
         $dbc = database();
-        $sql="select * from rate where date='$date'";
+        $sql="select * from rate where date='$date' and fk_Personid_Person = '$uid'";
         $data = mysqli_query($dbc, $sql);
         $row = mysqli_fetch_assoc($data);
 

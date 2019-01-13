@@ -13,7 +13,7 @@ class PostsController extends Controller
         $date_from=$request->input('date_from');
         $date_to=$request->input('date_to');
         $action=$request->input('action');
-        $kind=$request->input('kind');
+        $kind=$request->input('category');
         /* var_dump($date_from);
          var_dump($date_to);
          die;*/
@@ -56,8 +56,9 @@ class PostsController extends Controller
 
             if ( is_null($row['text'])) {
                 $sql = "insert into post(text,datetime_from,datetime_to,status,category,fk_Personid_Person) values('$action','$date_from','$date_to','1','$kind','$uid')";
-
                 if (mysqli_query($dbc, $sql)) {
+
+
                     $_SESSION['message'] = "Succesfully added";
 
                     $_SESSION["date_from"] = null;
@@ -100,12 +101,12 @@ class PostsController extends Controller
         if ( $timenow>=  $date )
         {
             $_SESSION['error']="date is passed";
-            return redirect('/Day');
+            return redirect("/Editpost?postid=" . "$pid");
         }
         elseif ($date>=$date2)
         {
             $_SESSION['error']="wrong date";
-            return redirect('/Day');
+            return redirect("/Editpost?postid=" . "$pid");
         }
         else {
             $dbc = database();
@@ -141,7 +142,7 @@ class PostsController extends Controller
                 $_SESSION['error']="at this time post is already written";
             }
 
-            return redirect('/Day');
+            return redirect("/Editpost?postid=" . "$pid");
         }
 
     }

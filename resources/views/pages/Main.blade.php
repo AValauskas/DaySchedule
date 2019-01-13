@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +24,6 @@ if (isset($_GET['ym'])) {
     $next = date('Y-m', strtotime('+1 month', $timestamp));
     //$transdate = date2('m-d-Y', time());
     $h=$month = date("H");
-    var_dump($h);
     $month = date("m");
     if (  $month==$month_num  )
         {
@@ -236,7 +234,6 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
         ats =[year, month, day].join('-');
-        alert("td is clicked " +ats );
         window.location.href = "../public/Todaydisplay?ymd="+ats;
     };
 </script>

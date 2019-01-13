@@ -1,5 +1,6 @@
 @include('pages.Menu')
         <!DOCTYPE html>
+
 <?php
 
 $uid= $_SESSION['userid'];
@@ -92,6 +93,7 @@ else
 <html>
 
 <head>
+    <title>Statistics</title>
     <style>
         body{
             font-family: "Century Gothic";

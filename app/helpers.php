@@ -34,13 +34,13 @@ function inisession() {   //valom sesijos kintamuosius
 function checkname ($username){
 if (!$username || strlen($username = trim($username)) == 0)
 {$_SESSION['name_error']=
-"<font size=\"2\" color=\"#ff0000\">* Neįvestas vartotojo vardas</font>";
+"<font size=\"2\" color=\"#ff0000\">* User name has not been entered</font>";
 "";
 return false;}
 elseif (!preg_match("/^([0-9a-zA-Z])*$/", $username))  /* Check if username is not alphanumeric */
 {$_SESSION['name_error']=
-"<font size=\"2\" color=\"#ff0000\">* Vartotojo vardas gali būti sudarytas<br>
-    &nbsp;&nbsp;tik iš raidžių ir skaičių</font>";
+"<font size=\"2\" color=\"#ff0000\">* User name can only consist<br>
+    &nbsp;&nbsp;of letters and numbers</font>";
 return false;}
 else return true;
 }
@@ -49,21 +49,21 @@ function checkpass($pwd,$dbpwd) {     //  slaptazodzio tikrinimas (tik demo: min
 
 if (!$pwd || strlen($pwd = trim($pwd)) == 0)
 {$_SESSION['pass_error']=
-"<font size=\"2\" color=\"#ff0000\">* Neįvestas slaptažodis</font>";
+"<font size=\"2\" color=\"#ff0000\">* Password has not been entered</font>";
 return false;}
 elseif (!preg_match("/^([0-9a-zA-Z])*$/", $pwd))  /* Check if $pass is not alphanumeric */
-{$_SESSION['pass_error']="* Čia slaptažodis gali būti sudarytas<br>&nbsp;&nbsp;tik iš raidžių ir skaičių";
+{$_SESSION['pass_error']="* Password can only consist of<br>&nbsp;&nbsp;letters and numbers";
 return false;}
 elseif (strlen($pwd)<4)  // per trumpas
 {$_SESSION['pass_error']=
-"<font size=\"2\" color=\"#ff0000\">* Slaptažodžio ilgis <4 simbolius</font>";
+"<font size=\"2\" color=\"#ff0000\">* Password length must be >= 4</font>";
 return false;}
 elseif ($dbpwd != substr(hash( 'sha256', $pwd ),5,32))
 //elseif ($dbpwd != $pwd)
 { //var_dump($dbpwd);
 //  xdebug_break();
 $_SESSION['pass_error']=
-"<font size=\"2\" color=\"#ff0000\">* Neteisingas slaptažodis</font>";
+"<font size=\"2\" color=\"#ff0000\">* Wrong password</font>";
 return false;}
 else return true;
 }
@@ -77,7 +77,7 @@ $uname = $upass = $ulevel = $uid = $umail = null;
 if (!$result || (mysqli_num_rows($result) != 1))   // jei >1 tai DB vardas kartojasi, netikrinu, imu pirma
 {  // neradom vartotojo DB
 $_SESSION['name_error']=
-"<font size=\"2\" color=\"#ff0000\">* Tokio vartotojo nėra</font>";
+"<font size=\"2\" color=\"#ff0000\">* Wrong username</font>";
 }
 else {  //vardas yra DB
 $row = mysqli_fetch_assoc($result);
@@ -89,12 +89,12 @@ return array($uname,$upass,$ulevel,$uid,$umail);
 function checkmail($mail) {// e-mail sintax error checking
 if (!$mail || strlen($mail = trim($mail)) == 0)
 {$_SESSION['mail_error']=
-"<font size=\"2\" color=\"#ff0000\">* Neįvestas e-pašto adresas</font>";
+"<font size=\"2\" color=\"#ff0000\">* Email has not been entered</font>";
 return false;}
 elseif (!filter_var($mail, FILTER_VALIDATE_EMAIL))
 {
     $_SESSION['mail_error']=
-"<font size=\"2\" color=\"#ff0000\">* Neteisingas e-pašto adreso formatas</font>";
+"<font size=\"2\" color=\"#ff0000\">* Wrong entered email format</font>";
 return false;}
 else return true;
 }

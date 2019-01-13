@@ -151,7 +151,7 @@ class UserController extends Controller
                 if (mysqli_query($dbc, $sql))
                 {$_SESSION['message']="Sucesfully edited";
                     inisession();
-                    return redirect('/login');
+                    return redirect('/welcome');
                 }
                 else {$_SESSION['message']="DB registracijos klaida:" . $sql . "<br>" . mysqli_error($dbc);}
             }
@@ -200,17 +200,18 @@ $succ=mail($to,$subject,$txt);
             $succ=mail($to,$subject,$txt);
             if($succ)
             {
-                var_dump("labas");
+                $_SESSION["mailsuccess"]="EMAIL HAS BEEN SENT";
 
             }
-            else{var_dump("ne");}
+
 
             $passdb=substr(hash('sha256', $newpass),5,32);
             $sql2="update person set password='$passdb' where email='$mail'";
             mysqli_query($dbc, $sql2);
 
         }
-        else{$_SESSION["mailerror"]="Email don't exist";
+        else{
+            $_SESSION["mailerror"]="EMAIL IS NOT VALID";
             return redirect('/forgotpass');
         }
 

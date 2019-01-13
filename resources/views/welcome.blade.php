@@ -19,6 +19,10 @@ inisession();
                 background:url({{url('images/Background.png')}}) no-repeat center fixed;
                 background-size: cover;
             }
+            p.error{
+                text-transform: uppercase;
+                color: green;
+            }
         </style>
     </head>
     <body>
@@ -66,7 +70,17 @@ inisession();
                 <a href=../public/registration><input type=button class="btn btn-lg" value='REGISTER'></a>
                 <a href=../public/forgotpass><input type=button class="btn btn-lg" id="small" value='FORGOT PASSWORD'></a>
             </div>
-            <br>
+            <div class="row">
+                <p class="error">
+                <?php if (isset($_SESSION['mailsuccess'])){
+                    $message = $_SESSION['mailsuccess'];
+
+                    echo"$message";
+
+                    $_SESSION['mailsuccess'] = null;
+                } ?>
+                </p>
+            </div>
             <br>
         </div>
     </body>

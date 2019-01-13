@@ -1,5 +1,6 @@
 @include('pages.Menu')
         <!DOCTYPE html>
+<title>Day Schedule</title>
 <style>
     .container-fluid{
         font-family: "Century Gothic";
@@ -99,7 +100,7 @@ $range = hoursRange();
             <div class=col-lg-1 >
                 <a href="?ymd=<?= $prev; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px">&lt;</a>
             </div>
-            <div class=col-lg-6>
+            <div class=col-lg-6 style="font-size: 85%">
                 <?php echo "$Year $month_name $day"; ?>
             </div>
             <div class=col-lg-2 style="font-size: 85%;">
@@ -184,8 +185,12 @@ $range = hoursRange();
                         </div>
                         <div class="col-lg-3" id="postTime">
                             <?php if (  $allfrom<360 )
-                            {echo "$hoursfrom2:$minfrom am - $hoursto2:$minto am";}
-                            else{echo "$hoursfrom2:$minfrom pm - $hoursto2:$minto pm";}?>
+                            {
+                                if ( $allfrom+$height<360 )
+                                {
+                                    echo "$hoursfrom2:$minfrom am - $hoursto2:$minto am";}
+                                else{ echo "$hoursfrom2:$minfrom am - $hoursto2:$minto pm";}
+                            } else{echo "$hoursfrom2:$minfrom pm - $hoursto2:$minto pm";}?>
                         </div>
                     </div>
                 </div>
@@ -284,8 +289,6 @@ $range = hoursRange();
 
 <script>
     function divclick(x){
-
-        alert("div is clicked ");
         window.location.href = "../public/Editpost?postid="+x;
     };
 </script>

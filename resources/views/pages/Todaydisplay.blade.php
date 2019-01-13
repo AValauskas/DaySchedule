@@ -1,7 +1,19 @@
 @include('pages.Menu')
         <!DOCTYPE html>
 <style>
-
+    .container-fluid{
+        font-family: "Century Gothic";
+    }
+    .row#date_info{
+        background: #f7e6ad;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+        height: 75px;
+        width: 100%;
+        font-size: 400%;
+        text-align: center;
+        text-transform: uppercase;
+    }
     #row1 {
         position: absolute;
         border-style: solid;
@@ -18,17 +30,10 @@
         border-width: 1px;
         z-index: 10;
     }
-
-
-
-
 </style>
 <html>
 
 <body>
-
-
-
 <?php
 $date=$_GET['ymd'];
 $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
@@ -41,7 +46,6 @@ $tomorrow=date('Y-m-d', strtotime($date. ' + 1 days'));
 $prev=date('Y-m-d', strtotime($date. ' - 1 days'));
 //$newformat = date('Y-m-d',$time);
 $sqlfind ="select * from post where datetime_from > '$date' and datetime_from < '$tomorrow' order by datetime_from";
-var_dump($sqlfind);
 $data = mysqli_query($dbc, $sqlfind);
 $allfrom=0;
 $allto=0;
@@ -50,31 +54,40 @@ $left=202;
 $count=0;
 ?>
 
-<ul class="list-inline">
-    <li class="list-inline-item"><a href="?ymd=<?= $prev; ?>" class="btn btn-link">&lt; prev</a></li>
-    <li class="list-inline-item"><span class="title"><?php echo "$date"; ?></span></li>
-    <li class="list-inline-item"><a href="?ymd=<?= $tomorrow; ?>" class="btn btn-link">next &gt;</a></li>
-    <li class="list-inline-item"><a href="?ymd=<?= $today; ?>" class="btn btn-link">today &gt;</a></li>
-</ul>
-
 <?php
 $range = hoursRange();
 
 ?>
-
-<div style=" position: relative ">
-    <div  >
-
+<div class="container-fluid" style="padding-right: 0px;padding-left: 0px;">
+    <div class="row" style="margin-right: 0px;margin-left: 0px;">
+        <div class="col-lg-3" style="padding-right: 0px;padding-left: 0px;">
+            @include('pages.SideMenu')
+        </div>
+<div class="col-lg-9" style="padding-right: 0px;padding-left: 0px;">
+    <div>
+        <div class='row' style="margin-right: 0px;margin-left: 0px;" id=date_info>
+            <div class=col-lg-1 >
+                <a href="?ymd=<?= $prev; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px">&lt;</a>
+            </div>
+            <div class=col-lg-8>
+                <?php echo "$date" ?>
+            </div>
+            <div class=col-lg-2 style="font-size: 100%;">
+                <a href="../public/Day" style="color: black;font-size: 30px" class="btn btn-link">ADD POST</a>
+            </div>
+            <div class=col-lg-1>
+                <a href="?ymd=<?= $tomorrow; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px"> &gt;</a>
+            </div>
+        </div>
         <?php foreach( $range as $item){
         ?>
-
-        <div class="row">
-            <div class="col-sm-2"  style="background-color:#aaa; border-style: solid; border-width: 1px; height: 30px;  z-index: -1; ">
+        <div class="row" style="margin-right: 0px;margin-left: 0px;">
+            <div class="col-sm-2"  style="background: white;height: 30px; border-right: 1px solid #cecece; ">
                 <?php echo"$item"; ?>
 
             </div>
 
-            <div class="col-sm-10" style="background-color:#bbb; border-style: solid; border-width: 1px; height: 30px;  z-index: -1; ">
+            <div class="col-sm-10" style="background-color:white; border-style: solid; border-width: 1px; border-color: #cecece;height: 30px;  ">
 
             </div>
 
@@ -216,8 +229,8 @@ $range = hoursRange();
     }
     ?>
 
-
-
+</div>
+</div>
 </div>
 
 

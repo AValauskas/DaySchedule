@@ -12,6 +12,7 @@
     <style>
         .sideBody{
             background: #7c7c7c;
+            font-family: "Century Gothic";
         }
         .sideMenu{
             width: 100%;

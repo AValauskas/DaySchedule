@@ -28,8 +28,25 @@ $data = mysqli_query($dbc, $sql);
 
 <html>
 <body>
-
-<div class="col-md-6 col-md-offset-3">
+<div>
+    <div class="row">
+        <div class="col-lg-3">
+            @include('pages.SideMenu')
+        </div>
+        <div class="col-lg-9">
+            <div class='row' id=date_info>
+                <div class=col-lg-1>
+                    bem
+                </div>
+                <div class=col-lg-8>
+                    bem
+                </div>
+                <div class=col-lg-2 style="font-size: 100%;">
+                    bem
+                </div>
+                <div class=col-lg-1>
+                    bem
+                </div>
     <form class="" action="{{URL::to("/DiaryDisplay")}}" method="get">
         <input type="date" name="from" value="<?php echo $from; ?>"/><input type="date" name="to"  value="<?php echo $to; ?>" /><input name = "submit" type="submit" value="Rodyti">
     </form>
@@ -63,7 +80,9 @@ $data = mysqli_query($dbc, $sql);
     </tbody>
 </table>
 
-
+        </div>
+    </div>
+</div>
 </body>
 
 

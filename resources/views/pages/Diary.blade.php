@@ -98,7 +98,6 @@ if (isset($_SESSION['diarytext']))
         </form>
     </div>
 </div>
-
 <?php
     }
     ?>

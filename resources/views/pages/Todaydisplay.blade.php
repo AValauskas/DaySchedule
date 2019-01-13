@@ -16,19 +16,26 @@
     }
     #row1 {
         position: absolute;
-        border-style: solid;
-        width: 1100px;
-        border-width: 1px;
-        z-index: 10;
-
+        width: 100%;
+        z-index: 1;
     }
     #row1:hover{
         background-color: yellow;
     }
-    #row2 {
-        position: absolute;
-        border-width: 1px;
-        z-index: 10;
+    div#postName{
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    div#postTime{
+        text-align: right;
+        overflow: hidden;
+    }
+    div#post{
+        text-transform: uppercase;
+        color: white;
+        overflow: hidden;
+        font-size: 20px;
     }
 </style>
 <html>
@@ -84,16 +91,79 @@ $range = hoursRange();
         <?php foreach( $range as $item){
         ?>
         <div class="row" style="margin-right: 0px;margin-left: 0px;">
-            <div class="col-sm-2"  style="background: white;height: 30px; border-right: 1px solid #cecece; ">
+            <div class="col-sm-2"  style="text-align: center;background: white;height: 30px; border-right: 1px solid #cecece; ">
                 <?php echo"$item"; ?>
 
             </div>
 
-            <div class="col-sm-10" style="background-color:white; border-style: solid; border-width: 1px; border-color: #cecece;height: 30px;  ">
+            <div class="col-sm-10" style="background-color:white;padding-left: 0px;padding-right: 0px; border-style: solid; border-width: 1px; border-color: #cecece;height: 30px;  ">
+                <?php while($row = mysqli_fetch_array($data)) {
 
+                $dfrom=$row['datetime_from'];
+                $dto=$row['datetime_to'];
+                $text=$row['text'];
+                $status=$row['status'];
+                $postid=$row['id_Post'];
+                $id = $row['category'];
+                if ($id == 1){
+                     $color = "#6f96d6";
+                 } else if ($id == 2){
+                     $color = "#b26e6e";
+                 }else if  ($id == 3){
+                     $color = "#789969";
+                 } else {
+                     $color = "#999169";
+                 }
+                $date = strtotime($dfrom);
+                $date2 = strtotime($dto);
+                $hoursfrom = date('H', $date);
+                $hoursfrom2 = date('h', $date);
+                $minfrom = date('i', $date);
+
+                // $allfrom=$allfromtocount-$allfrom;
+                $dayfrom = date('d', $date);
+                $dayto = date('d', $date2);
+                $hoursto=date('H', $date2);
+                $hoursto2=date('h', $date2);
+                $minto=date('i', $date2);
+                if (  $hoursto<$hoursfrom && $day==$dayfrom )
+                {
+                    $hoursto=24;
+                    $minto=0;
+                }
+                elseif($hoursto<$hoursfrom && $day==$dayto ){
+                    $hoursfrom=0;
+                    $minfrom=0;
+
+                }
+                $allfrom =($hoursfrom*60+$minfrom)/2;
+                $allto= ($hoursto*60+$minto)/2;
+                // $allto=$alltotocount-$allto;
+
+                //var_dump($alltotocount);
+                $height=$allto-$allfrom;
+                ?>
+                <div  id="row1" style="top: <?php echo $allfrom?>px; min-height: 20px; height: <?php echo $height;?>px;  background-color:<?php echo $color?>; " onclick='divclick(<?php echo $postid ?>);' >
+                    <div class="row" id="post">
+                        <div class="col-lg-9" id="postName">
+                            <?php echo"$text";?>
+                        </div>
+                        <div class="col-lg-3" id="postTime">
+                            <?php if (  $allfrom<360 )
+                            {echo "$hoursfrom2:$minfrom am - $hoursto2:$minto am";}
+                            else{echo "$hoursfrom2:$minfrom pm - $hoursto2:$minto pm";}?>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
             </div>
 
         </div>
+
+        <div style="background: white">
+            <div class="row">
         <?php
         }
         ?>
@@ -106,11 +176,10 @@ $range = hoursRange();
             $data2 = mysqli_query($dbc, $sql);
             $row = mysqli_fetch_array($data2);
             $value =$row['value'];
-
             if(($hour>=20 && $date<=$today )|| $date<$today)
             {
             ?>
-            <div class="container">
+            <div class="col-lg-6">
                 <div class="col-md-6 col-md-offset-3">
                     <form class="" action="{{URL::to('/evaluate')}}" method="get">
                         @csrf
@@ -163,8 +232,7 @@ $range = hoursRange();
             {
             ?>
 
-
-            <div class="container">
+            <div class="col-lg-6">
                 <div class="col-md-6 col-md-offset-3" >
                     <h2> <?php echo"$date "?> day diary</h2>
                     <?php
@@ -184,67 +252,8 @@ $range = hoursRange();
 
 <center><p style="font-size:40px;"><?php echo $percent;?>%</p></center>
     </div>
-
-
-    <?php while($row = mysqli_fetch_array($data)) {
-
-    $dfrom=$row['datetime_from'];
-    $dto=$row['datetime_to'];
-    $text=$row['text'];
-    $status=$row['status'];
-    $postid=$row['id_Post'];
-    if (  $status==1  )
-        {
-            $color="#1affff";
-        }
-        elseif ($status==2)
-            {
-                $color="green";
-            }
-            else{$color="red";}
-    var_dump($date);
-    var_dump($dfrom);
-    $date = strtotime($dfrom);
-    $date2 = strtotime($dto);
-    $hoursfrom = date('H', $date);
-    $hoursfrom2 = date('h', $date);
-    $minfrom = date('i', $date);
-
-   // $allfrom=$allfromtocount-$allfrom;
-    $dayfrom = date('d', $date);
-    $dayto = date('d', $date2);
-    $hoursto=date('H', $date2);
-    $hoursto2=date('h', $date2);
-    $minto=date('i', $date2);
-    if (  $hoursto<$hoursfrom && $day==$dayfrom )
-        {
-            var_dump("labas");
-            $hoursto=24;
-            $minto=0;
-        }
-        elseif($hoursto<$hoursfrom && $day==$dayto ){
-            $hoursfrom=0;
-            $minfrom=0;
-
-        }
-    $allfrom =($hoursfrom*60+$minfrom)/2;
-    $allto= ($hoursto*60+$minto)/2;
-   // $allto=$alltotocount-$allto;
-
-    //var_dump($alltotocount);
-    $height=$allto-$allfrom;
-    ?>
-    <div  id="row1" style="top: <?php echo $allfrom?>px; left:<?php echo $left?>px;  height: <?php echo $height;?>px;  background-color:<?php echo $color?>; " onclick='divclick(<?php echo $postid ?>);' >
-
-
-      <span style="font-size:10px;"> <?php if (  $allfrom<360 )
-        {echo "$hoursfrom2:$minfrom am- $hoursto2:$minto am";}
-        else{echo "$hoursfrom2:$minfrom pm- $hoursto2:$minto pm";}?></span>
-        <span style="font-size:15px;"> <?php echo"$text";?></span>
+        </div>
     </div>
-    <?php
-    }
-    ?>
 
 </div>
 </div>

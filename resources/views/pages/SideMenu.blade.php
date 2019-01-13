@@ -40,13 +40,7 @@
 <body class="sideBody">
 <div class="sideMenu">
     <div class="row">
-        <a href=../public/Main><input type=button class="btn btn-lg" id="side" value='HOME'></a>
-    </div>
-    <div class="row">
         <a href=../public/Main><input type=button class="btn btn-lg" id="side" value='SCHEDULE'></a>
-    </div>
-    <div class="row">
-        <a href=../public/registration><input type=button class="btn btn-lg" id="side" value='POSTS'></a>
     </div>
     <div class="row">
         <a href=../public/DiaryDisplay><input type=button class="btn btn-lg" id="side" value='JOURNAL'></a>

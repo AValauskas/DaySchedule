@@ -1,6 +1,27 @@
 @include('pages.Menu')
         <!DOCTYPE html>
+<head>
+    <title>Journal</title>
 
+    <style>
+        body{
+            font-family: "Century Gothic";
+        }
+        .row#date_info{
+            background: #f7e6ad;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+            height: 75px;
+            width: 100%;
+            font-size: 200%;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        form.date{
+            margin-top: 10px;
+        }
+    </style>
+</head>
 <?php
 $uid= $_SESSION['userid'];
 $dbc = mysqli_connect('localhost', 'root', '', 'schedule');
@@ -35,26 +56,14 @@ $data = mysqli_query($dbc, $sql);
         </div>
         <div class="col-lg-9">
             <div class='row' id=date_info>
-                <div class=col-lg-1>
-                    bem
-                </div>
-                <div class=col-lg-8>
-                    bem
-                </div>
-                <div class=col-lg-2 style="font-size: 100%;">
-                    bem
-                </div>
-                <div class=col-lg-1>
-                    bem
-                </div>
-    <form class="" action="{{URL::to("/DiaryDisplay")}}" method="get">
-        <input type="date" name="from" value="<?php echo $from; ?>"/><input type="date" name="to"  value="<?php echo $to; ?>" /><input name = "submit" type="submit" value="Rodyti">
-    </form>
+                <form class="date" action="{{URL::to("/DiaryDisplay")}}" method="get">
+                    <input type="date" name="from" value="<?php echo $from; ?>"/><input type="date" name="to"  value="<?php echo $to; ?>" /><input name = "submit" type="submit" value="Rodyti">
+                </form>
 </div>
 
 
 
-
+<div style="background: white">
 <table class="table table-hover" id="myTable">
     <thead>
     <tr class="header">
@@ -79,7 +88,7 @@ $data = mysqli_query($dbc, $sql);
 
     </tbody>
 </table>
-
+</div>
         </div>
     </div>
 </div>

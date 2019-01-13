@@ -215,7 +215,7 @@ $range = hoursRange();
     $dayto = date('d', $date2);
     $hoursto=date('H', $date2);
     $hoursto2=date('h', $date2);
-
+    $minto=date('i', $date2);
     if (  $hoursto<$hoursfrom && $day==$dayfrom )
         {
             var_dump("labas");
@@ -225,7 +225,7 @@ $range = hoursRange();
         elseif($hoursto<$hoursfrom && $day==$dayto ){
             $hoursfrom=0;
             $minfrom=0;
-            $minto=date('i', $date2);
+
         }
     $allfrom =($hoursfrom*60+$minfrom)/2;
     $allto= ($hoursto*60+$minto)/2;

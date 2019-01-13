@@ -188,7 +188,7 @@ else
                     <?php foreach($result2 as $value){ ?>
                 ['rate <?php
                         $val=$value['category'];
-                        $sqlcat="select * from category where id_Category ='$val' and fk_Personid_Person='$uid'";
+                        $sqlcat="select * from category where id_Category ='$val'";
                         $data2 = mysqli_query($dbc, $sqlcat);
                         $row = mysqli_fetch_array($data2);
                         echo "$row[name]";?> repeats:  <?php echo "$value[num]";?>',     <?php echo "$value[num]";?>],
@@ -213,7 +213,7 @@ else
                         if($sk==0){$sk=$sk+1;}else{?>
                     ["<?php
                         $val=$sk;
-                        $sqlcat="select * from category where id_Category ='$val' and fk_Personid_Person='$uid'";
+                        $sqlcat="select * from category where id_Category ='$val'";
                         $data2 = mysqli_query($dbc, $sqlcat);
                         $row = mysqli_fetch_array($data2);
                         echo "$row[name]";

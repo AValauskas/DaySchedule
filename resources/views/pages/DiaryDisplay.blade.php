@@ -3,10 +3,7 @@
 
 <?php
 $uid= $_SESSION['userid'];
-$dbc = mysqli_connect('localhost', 'root', '', 'schedule');
-if (!$dbc) {
-    die ("Can't connect to MySQL:" . mysqli_error($dbc));
-}
+$dbc = database();
 if(isset($_GET['from']))
     {
         $from=$_GET['from'];

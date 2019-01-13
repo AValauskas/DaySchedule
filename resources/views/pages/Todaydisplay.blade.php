@@ -37,6 +37,15 @@
         overflow: hidden;
         font-size: 20px;
     }
+    .btn{
+        color: white;
+        font-size: 20px;
+        background-color: #353535;
+    }
+    .btn:hover{
+        color: #1b1e21;
+        background-color: gray;
+    }
 </style>
 <html>
 
@@ -78,8 +87,8 @@ $range = hoursRange();
             <div class=col-lg-8>
                 <?php echo "$date" ?>
             </div>
-            <div class=col-lg-2 style="font-size: 100%;">
-                <a href="../public/Day" style="color: black;font-size: 30px" class="btn btn-link">ADD POST</a>
+            <div class=col-lg-2 style="font-size: 85%;">
+                <?php echo" <a href=../public/Day?dt=",urlencode($date),"><input type=button class='btn btn-lg' id='$date' value='ADD POST' ></a> " ?>
             </div>
             <div class=col-lg-1>
                 <a href="?ymd=<?= $tomorrow; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px"> &gt;</a>
@@ -211,36 +220,7 @@ $range = hoursRange();
             ?>
             <li class="list-inline-item"><a href="../public/Diary" class="btn btn-link">Write Diary&gt;</a></li>
             <?php }
-
-            if( $date>=$today ){
             ?>
-            <td><?php echo" <a href=../public/Day?dt=",urlencode($date),"><input type=button id='$date' value='add action' ></a> " ?></td>
-
-            <?php }?>
-
-
-
-
-            <?php
-            $sql2="select * from diary where date='$date' and 	fk_Personid_Person='$uid'";
-            $data3 = mysqli_query($dbc, $sql2);
-            $row = mysqli_fetch_array($data3);
-            if(isset($row))
-            {
-            ?>
-
-            <div class="col-lg-6">
-                <div class="col-md-6 col-md-offset-3" >
-                    <h2> <?php echo"$date "?> day diary</h2>
-                    <?php
-
-                    $toprint =$row['text'];
-                    echo " $toprint";?>
-                </div>
-            </div>
-            <?php
-            }?>
-
 
         <center><h2>Day Completed</h2></center>
         <?php
@@ -249,6 +229,27 @@ $range = hoursRange();
 
 <center><p style="font-size:40px;"><?php echo $percent;?>%</p></center>
     </div>
+            <div class="row" style="background: black">
+                <?php
+                $sql2="select * from diary where date='$date' and 	fk_Personid_Person='$uid'";
+                $data3 = mysqli_query($dbc, $sql2);
+                $row = mysqli_fetch_array($data3);
+                if(isset($row))
+                {
+                ?>
+
+                <div class="col-lg-6">
+                    <div class="col-md-6 col-md-offset-3" >
+                        <h2> <?php echo"$date "?> day diary</h2>
+                        <?php
+
+                        $toprint =$row['text'];
+                        echo " $toprint";?>
+                    </div>
+                </div>
+                <?php
+                }?>
+            </div>
         </div>
     </div>
 

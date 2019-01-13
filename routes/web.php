@@ -32,7 +32,8 @@ Route::get('/deletepost', 'PostsController@deletepost');
 Route::get('/poststatus', 'PostsController@poststatus');
 Route::get('/adddiary', 'DiaryController@adddiary');
 Route::get('/editdiary', 'DiaryController@editdiary');
-Route::get('/deletediary', 'DiaryController@deletediary');
+Route::get('/deletediaryDay', 'DiaryController@deletediaryDay');
+Route::get('/deletediaryJournal', 'DiaryController@deletediaryJournal');
 Route::get('/editinfo', 'UserController@editinfo');
 Route::get('/evaluate', 'EvaluateController@evaluate');
 

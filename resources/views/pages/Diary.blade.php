@@ -63,7 +63,7 @@ if (isset($_SESSION['diarytext']))
 
         </form>
     </div>
-    <?php echo" <a href=../public/deletediary?id=",urlencode($idd),"><input type=button id='$idd' value='Delete diary' ></a> " ?>
+    <?php echo" <a href=../public/deletediaryDay?id=",urlencode($idd),"><input type=button id='$idd' value='Delete diary' ></a> " ?>
 </div>
 
         <?php

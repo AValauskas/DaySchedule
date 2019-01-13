@@ -15,14 +15,9 @@
 <nav class="navbar navbar-inverse" style="margin-bottom: 0px">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="../public/Main">Day Schedule</a>
-
-
 
             <ul class="nav navbar-nav">
                 <li><a href="../public/editcustomerinfo">Edit personal info</a></li>
-                <li><a href="../public/DiaryDisplay">Diary</a></li>
-                <li class="list-inline-item"><a href="../public/DisplayValues" class="btn btn-link">Statistics</a></li>
             </ul>
 
 

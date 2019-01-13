@@ -37,7 +37,7 @@ class DiaryController extends Controller
             return redirect('/Diary');
         }
     }
-    public function deletediary(request $request)
+    public function deletediaryDay(request $request)
     {
         $diaryid=$_GET['id'];
         $dbc = database();
@@ -45,6 +45,17 @@ class DiaryController extends Controller
         if(mysqli_query($dbc, $sql)) {
             $_SESSION['diaryremoved']="Diary was succesfully deleted";
             return redirect('/Diary');
+
+        }
+    }
+    public function deletediaryJournal(request $request)
+    {
+        $diaryid=$_GET['id'];
+        $dbc = database();
+        $sql = "DELETE diary from diary where id_Diary='$diaryid'";
+        if(mysqli_query($dbc, $sql)) {
+            $_SESSION['diaryremoved']="Diary was succesfully deleted";
+            return redirect('/DiaryDisplay');
 
         }
     }

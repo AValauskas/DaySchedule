@@ -20,6 +20,23 @@
         form.date{
             margin-top: 10px;
         }
+        div.journal{
+            background: white;
+            height: 100%;
+        }
+        .btn{
+            text-transform: uppercase;
+            color: white;
+            background-color: #353535;
+        }
+        .btn:hover{
+            color: #1b1e21;
+            background-color: gray;
+        }
+        td.diaryPost{
+            min-width: 100px;
+            overflow: auto;
+        }
     </style>
 </head>
 <?php
@@ -47,20 +64,32 @@ $data = mysqli_query($dbc, $sql);
 <html>
 <body>
 <div>
-    <div class="row">
-        <div class="col-lg-3">
+    <div class="row" style="margin-right: 0px;margin-left: 0px;">
+        <div class="col-lg-3" style="padding-right: 0px;padding-left: 0px;">
             @include('pages.SideMenu')
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-9" style="padding-right: 0px;padding-left: 0px;">
             <div class='row' id=date_info>
                 <form class="date" action="{{URL::to("/DiaryDisplay")}}" method="get">
-                    <input type="date" name="from" value="<?php echo $from; ?>"/><input type="date" name="to"  value="<?php echo $to; ?>" /><input name = "submit" type="submit" value="Rodyti">
+                    <div class="col-lg-5">
+                        FROM
+                        <input type="date" name="from" value="<?php echo $from; ?>"/>
+                    </div>
+
+                    <div class="col-lg-5">
+                        TO
+                        <input type="date" name="to"  value="<?php echo $to; ?>" />
+                    </div>
+
+                    <div class="col-lg-2">
+                        <input class="btn btn-lg" name = "submit" type="submit" value="SHOW">
+                    </div>
                 </form>
 </div>
 
 
 
-<div style="background: white">
+<div class="journal">
 <table class="table table-hover" id="myTable">
     <thead>
     <tr class="header">
@@ -74,10 +103,10 @@ $data = mysqli_query($dbc, $sql);
     <?php
     while($row = mysqli_fetch_array($data)) {?>
     <tr>
-        <td><?php echo $row['date'];   $idd =$row['id_Diary'];?></td>
-        <td><?php echo $row['text'];?></td>
-        <td><?php echo" <a href=../public/Editpost?postid=",urlencode($idd),"><input type=button id='$idd' value='Edit' ></a> " ?></td>
-        <td><?php echo" <a href=../public/deletepost?id=",urlencode($idd),"><input type=button id='$idd' value='delete' ></a> " ?></td>
+        <td class="diaryPost"><?php echo $row['date'];   $idd =$row['id_Diary'];?></td>
+        <td class="diaryPost"><?php echo $row['text'];?></td>
+        <td class="diaryPost"><?php echo" <a href=../public/Diary?postid=",urlencode($idd),"><input type=button class='btn btn-lg' id='$idd' value='Edit' ></a> " ?></td>
+        <td class="diaryPost">  <?php echo" <a href=../public/deletediaryJournal?id=",urlencode($idd),"><input type=button class='btn btn-lg' id='$idd' value='Delete' ></a> " ?></td>
     </tr>
 
 

@@ -96,6 +96,15 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
     td.empty:hover{
         background: #a5a5a5;
     }
+    .btn{
+        color: white;
+        font-size: 20px;
+        background-color: #353535;
+    }
+    .btn:hover{
+        color: #1b1e21;
+        background-color: gray;
+    }
 </style>
 
 <body>
@@ -111,11 +120,11 @@ while (($today <= 32) && ($cont)) //At 32, we have to be rolling over to the nex
             <div class=col-lg-1>
               <a href="?ym=<?= $prev; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px">&lt;</a>
             </div>
-            <div class=col-lg-8>
+            <div class=col-lg-8 style="font-size: 50px">
                 <?php echo "$month_name $year" ?>
             </div>
-            <div class=col-lg-2 style="font-size: 100%;">
-                <a href="../public/Day" style="color: black;font-size: 30px" class="btn btn-link">ADD POST</a>
+            <div class=col-lg-2 style="margin-top: 15px">
+                <a href="../public/Day"  type=button class="btn btn-lg">ADD POST</a>
             </div>
             <div class=col-lg-1>
                <a href="?ym=<?= $next; ?>" class="btn btn-link arrow" style="color: black;font-size: 50px"> &gt;</a>

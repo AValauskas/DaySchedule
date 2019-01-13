@@ -233,7 +233,7 @@ else
                 2]);
 
             var options = {
-                title: "Minutes spent of activities",
+                title: "Minutes spent on activities",
                 width: 600,
                 height: 400,
                 bar: {groupWidth: "95%"},
